@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring Boot实现新冠肺炎病例数展示, Zhiyan&#39;s Blog">
-    <meta name="description" content="SpringBoot简单新冠数据统计现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.yout">
+    <meta name="description" content="SpringBoot实现新冠肺炎病例数展示现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.y">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -384,7 +384,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SpringBoot简单新冠数据统计"><a href="#SpringBoot简单新冠数据统计" class="headerlink" title="SpringBoot简单新冠数据统计"></a>SpringBoot简单新冠数据统计</h1><p>现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （<a href="https://www.youtube.com/watch?v=8hjNG9GZGnQ&amp;t=2711s），挺适合像我这种对SpringBoot没啥了解的人，我照着做了一遍，写个文章把步骤捋一捋。" target="_blank" rel="noopener">https://www.youtube.com/watch?v=8hjNG9GZGnQ&amp;t=2711s），挺适合像我这种对SpringBoot没啥了解的人，我照着做了一遍，写个文章把步骤捋一捋。</a></p>
+                <h1 id="SpringBoot实现新冠肺炎病例数展示"><a href="#SpringBoot实现新冠肺炎病例数展示" class="headerlink" title="SpringBoot实现新冠肺炎病例数展示"></a>SpringBoot实现新冠肺炎病例数展示</h1><p>现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （<a href="https://www.youtube.com/watch?v=8hjNG9GZGnQ&amp;t=2711s），挺适合像我这种对SpringBoot没啥了解的人，我照着做了一遍，写个文章把步骤捋一捋。" target="_blank" rel="noopener">https://www.youtube.com/watch?v=8hjNG9GZGnQ&amp;t=2711s），挺适合像我这种对SpringBoot没啥了解的人，我照着做了一遍，写个文章把步骤捋一捋。</a></p>
 <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><p>先说数据，现在全球用的数据基本都是John Hopkins的，那我们也用这个：</p>
 <p><a href="https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv" target="_blank" rel="noopener">https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv</a></p>
 <p><img src="/2020/03/29/covidtracker/repo.png" alt="UJH dataset" width="500"></p>
@@ -392,26 +392,26 @@
 <p>再说工具，我们用SpringBoot做后台，因为是简单项目，没必要前后端分离，所以我们用Thymeleaf来作为HTML的模板，没有数据库。和上学期学过的 ASP .NET 框架很像， .NET里这个HTML模板叫Razor，而且和MVC这种结构类似。</p>
 <p>我使用Intellij IDEA作为IDE，Java版本为11。Java 11有新加的Java.Net库，比较方便搞Http的数据请求，并且是一个LTS版本。</p>
 <p>使用Maven作为包管理工具，因为要涉及到CSV文件的读取，所以我们用Apache Commons CSV这个工具来处理CSV文件。</p>
-<p>这个程序使用MVVM模式，和MVC模式差不多，只不过data model和view model不一样。需要了解一下基本的MVC模式即可。</p>
+<p>这个程序和MVC模式差不多，只不过data model和view model不一样。需要了解一下基本的MVC模式即可。</p>
 <h2 id="2-搭建环境"><a href="#2-搭建环境" class="headerlink" title="2.搭建环境"></a>2.搭建环境</h2><p>打开Intellij的new project，然后在左侧的工程模板里选择Spring Initializer</p>
-<p><img src="/2020/03/29/covidtracker/start1.png" alt="UJH dataset" width="400"></p>
+<p><img src="/2020/03/29/covidtracker/start1.png" alt="template set" width="400"></p>
 <p>注意这里选择Java 11</p>
 <p>在下一个页面改改名字啥的，然后选择Maven Project</p>
-<p><img src="/2020/03/29/covidtracker/start2.png" alt="UJH dataset" width="500"></p>
+<p><img src="/2020/03/29/covidtracker/start2.png" alt="project set" width="500"></p>
 <p>在下一个页面里选择dependencies，Thymeleaf，Spring Boot DevTools和Spring Web。</p>
-<p><img src="/2020/03/29/covidtracker/start3.png" alt="UJH dataset" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/start3.png" alt="tools select" width="600"></p>
 <p>打开Maven的pom.xml配置文件中的Java version以及IDE的Java的Target Bytecode Version是11，在Preferences, Build，Compiler里。</p>
-<p><img src="/2020/03/29/covidtracker/start4.png" alt="UJH dataset" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/start4.png" alt="java 11" width="600"></p>
 <h2 id="3-创建Service"><a href="#3-创建Service" class="headerlink" title="3. 创建Service"></a>3. 创建Service</h2><p>我们需要程序自动去网站上获取数据，包括每次我运行他的时候和每天一个固定的时间。这个功能需要使用Spring Boot的Service功能来实现。</p>
 <p>这里我们先创建一个叫CoronaVirusDataService的类，并把CSV数据的url复制过来，用Java.net做一个Http Request。</p>
-<p><img src="/2020/03/29/covidtracker/getdata.png" alt="UJH dataset" width="600"><br>这个时候是没有输出的。</p>
+<p><img src="/2020/03/29/covidtracker/getdata.png" alt="get data" width="600"><br>这个时候是没有输出的。</p>
 <p>然后给这个类加上@Service和@PostConstruct的annotation，这个时候每次程序运行，都会创建一个Service的object，然后执行@PostConstruct，就能看到输出的数据。</p>
-<p><img src="/2020/03/29/covidtracker/getdata2.png" alt="UJH dataset" width="600"></p>
-<p><img src="/2020/03/29/covidtracker/printdata.png" alt="UJH " width="600"></p>
+<p><img src="/2020/03/29/covidtracker/getdata2.png" alt="get data 2" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/printdata.png" alt="print data" width="600"></p>
 <p>使用@schedule 定义每到一定的时间自动执行。这里我们定义的是每到一天的第一个小时自动执行。</p>
-<p><img src="/2020/03/29/covidtracker/schedule.png" alt="UJH " width="500"></p>
-<p>因为要用commons-csv处理这个SCV文件，在pom.xm里加上这个dependency。<br><img src="/2020/03/29/covidtracker/commonsCSV.png" alt="UJH " width="600"></p>
-<p>参考commons-csv的doc里介绍的用法，把column名字改成我们dataset的。<br><img src="/2020/03/29/covidtracker/commonsUse.png" alt="UJH " width="600"></p>
+<p><img src="/2020/03/29/covidtracker/schedule.png" alt="schedule" width="500"></p>
+<p>因为要用commons-csv处理这个SCV文件，在pom.xm里加上这个dependency。<br><img src="/2020/03/29/covidtracker/commonsCSV.png" alt="commons-csv" width="600"></p>
+<p>参考commons-csv的doc里介绍的用法，把column名字改成我们dataset的。<br><img src="/2020/03/29/covidtracker/commonsUse.png" alt="csv doc" width="600"></p>
 <p>这个CSV文件的每一行，即每个Province的数据，我们定义成MVC中的model类，用model里的attribute来表示column，最后用一个ArrayList保存这些model object。</p>
 <p>最终程序如下：</p>
 <pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
@@ -530,17 +530,17 @@
 <span class="token punctuation">}</span></code></pre>
 <h2 id="6-创建home-html页面"><a href="#6-创建home-html页面" class="headerlink" title="6. 创建home.html页面"></a>6. 创建home.html页面</h2><p>在resources/templates下新建一个home.html文件, 这个这个文件与controller返回的值相对应。</p>
 <p>用的是Thymeleaf的模板，这个模板主要起三个作用: 1.是定义自己的attribute或者tag; 2.计算你定义的表达式; 3.应用你定义的逻辑。不了解没关系，可以打开Thymeleaf官网，找一些范例，修改一下。<br>只用看明白以下这两个例子，做这个程序就够了。</p>
-<p><img src="/2020/03/29/covidtracker/thyme1.png" alt="UJH " width="600"></p>
-<p><img src="/2020/03/29/covidtracker/thyme2.png" alt="UJH " width="600"></p>
+<p><img src="/2020/03/29/covidtracker/thyme1.png" alt="Thymeleaf home" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/thyme2.png" alt="Thymeleaf table" width="600"></p>
 <p>简单说明，th: 表示这个tab使用Thymeleaf语法。#{}表示message, ${}表示variable的值。</p>
-<p><img src="/2020/03/29/covidtracker/thymecode.png" alt="UJH " width="600"></p>
-<p>在浏览器输入 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 现在看到是这样的界面<br><img src="/2020/03/29/covidtracker/initialpage.png" alt="UJH " width="600"></p>
+<p><img src="/2020/03/29/covidtracker/thymecode.png" alt="use Thymeleaf" width="600"></p>
+<p>在浏览器输入 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 现在看到是这样的界面<br><img src="/2020/03/29/covidtracker/initialpage.png" alt="HTML page" width="600"></p>
 <p>这个界面现在显示了我们需要的数据，仅此而已，我们可以从BootStrap这个库里找点CSS样式美化一下。</p>
-<p><img src="/2020/03/29/covidtracker/bootstrapset.png" alt="UJH " width="600"></p>
+<p><img src="/2020/03/29/covidtracker/bootstrapset.png" alt="add Bootstrap" width="600"></p>
 <p>找到Jumbotron的范例，改一改。</p>
 <p><img src="/2020/03/29/covidtracker/jumbbutton.png" alt="jumbotron" width="600"></p>
 <p>页面加上Jumbotron，是这种效果：</p>
-<p><img src="/2020/03/29/covidtracker/jumbtron.png" alt="jumbotron" width="500"></p>
+<p><img src="/2020/03/29/covidtracker/jumbtron.png" alt="add jumbotron" width="500"></p>
 <p>最后的HTML页面:</p>
 <pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
 
@@ -592,7 +592,7 @@
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
 <p>页面效果:</p>
-<p><img src="/2020/03/29/covidtracker/finalpage.png" alt="jumbotron" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/finalpage.png" alt="final page" width="600"></p>
 <h2 id="7-Data-visualization"><a href="#7-Data-visualization" class="headerlink" title="7. Data visualization"></a>7. Data visualization</h2><p>那个视频里的程序到这里就结束了，其实除了把dataset的数据展示出来，data visualizaion部分能做的还有很多。</p>
 <p>我自己尝试了先用group by统计每个国家感染人数的总和, 然后sort这个结果。Java里做groupby和sort真的太麻烦了。</p>
 <pre class=" language-java"><code class="language-java">
@@ -644,7 +644,7 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span></code></pre>
 <p>改动完之后是这样的:</p>
-<p><img src="/2020/03/29/covidtracker/sorted.png" alt="jumbotron" width="600"></p>
+<p><img src="/2020/03/29/covidtracker/sorted.png" alt="groupby country" width="600"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -932,7 +932,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SpringBoot简单新冠数据统计现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.yout
+                            SpringBoot实现新冠肺炎病例数展示现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.y
                         
                     </div>
                     <div class="publish-info">
