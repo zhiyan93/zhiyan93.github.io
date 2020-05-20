@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GitHub新手笔记, Zhiyan&#39;s Blog">
-    <meta name="description" content="GitHub 新手笔记1.  简介GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫Git">
+    <meta name="keywords" content="scrollview, Zhiyan&#39;s Blog">
+    <meta name="description" content="废寝忘食做了一个半月的IE毕业设计总算是搞完了。 之后会陆续总结一些学到的东西，帮助一些搞不懂这些问题的人，也是怕自己忘了。先说iOS程序里的一个很基本的功能，scrollview。这个东西其实不难，网上能搜到很多教你怎么做的，我视频加文字">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GitHub新手笔记 | Zhiyan&#39;s Blog</title>
+    <title>scrollview | Zhiyan&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -218,12 +218,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GitHub新手笔记</h1>
+                    <h1 class="description center-align post-title">scrollview</h1>
                 </div>
             </div>
         </div>
@@ -352,7 +352,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-01-19
+                    2020-05-20
                 </div>
                 
 
@@ -361,14 +361,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3.4k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    13 Min
+                    4 Min
                 </div>
                 
 
@@ -384,172 +384,56 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="GitHub-新手笔记"><a href="#GitHub-新手笔记" class="headerlink" title="GitHub 新手笔记"></a>GitHub 新手笔记</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.  简介"></a>1.  简介</h2><p>GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫GitKraken, 这个软件用学校的邮箱的GitHub账号可以免费, 界面更加炫酷并且多了一些追踪timeline, branch, 以及任务板之类的的功能, 在多人团队合作的时候可能会比较有用, 自己用就没必要了. 除此之外, 基本上常见的IDE上也都会支持version control功能, 可以在上面登录GitHub的账号, 会方便许多. 但是这种不一定靠谱. 我之前用Xcode做一个iOS的程序的时候, 用Xcode自带的git工具push写好的代码, 遇到过一些BUG.</p>
-<p>总结来说, 可以用git命令行, GitHub Desktop, GitKraken(团队合作), IDE自带的工具(Xcode的感觉不靠谱). 本文只介绍命令行, 辅助使用GitHub Desktop.</p>
-<h2 id="2-个人使用"><a href="#2-个人使用" class="headerlink" title="2.  个人使用"></a>2.  个人使用</h2><p>个人使用大部分情况就是这几个命令:</p>
-<pre class=" language-sh"><code class="language-sh"> git clone
- git add .
- git status
- git log --oneline
- git commit -m
- git push
- git diff</code></pre>
-<p>git clone: 从GitHub的remote端把repository下载到本地, 并且在本地建立一个repository, clone完之后会发现文件目录下会有一个自动生成的.git的文件, 这个文件就是用来记录你本地的repository信息的.</p>
-<p>git add . : 把你新加入到这个repository的目录下的所有文件加入你的local repository. 简单来说就是添加文件.</p>
-<p>git status: 显示你local repository的状态, 每次执行完一个操作可以用这个命令看看改了哪些东西.</p>
-<p>git log –oneline: 显示你所有的操作记录. 不加–oneline的话会显示详细信息, 比如是谁修改的, 修改日期. 因为是自己使用, 一般看简要信息就够了.</p>
-<p>git commit -m: 每次把程序修改完之后, 要commit一下, 并且加上一句话, 表示你确认这些修改. 这样你下次再该, 就只会显示你下一次改的东西, 这次的就不会显示. 相当于一个commit就是创建一个版本, 可以追踪每一次分别改了什么.</p>
-<p>git push: commit之后把本地的repository的内容覆盖remote的repository, 简单来说就是更新GitHub上的代码.</p>
-<p>举个例子: </p>
-<ul>
-<li><h3 id="先在GitHub网站上新建一个repository"><a href="#先在GitHub网站上新建一个repository" class="headerlink" title="先在GitHub网站上新建一个repository"></a>先在GitHub网站上新建一个repository</h3></li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/newrep.png" alt="new repository" width="500"></p>
-<ul>
-<li><h3 id="用clone命令把这个repository下载到本地"><a href="#用clone命令把这个repository下载到本地" class="headerlink" title="用clone命令把这个repository下载到本地"></a>用clone命令把这个repository下载到本地</h3>打开Command Prompt, 用cd命令来切换到要下载到的目录, 如果在Windows上要从C盘切换到其他盘, 直接输 e: (没有cd) 就是切换到E盘.</li>
-</ul>
-<p>从GitHub上复制那个repository的clone or download按钮的https url.</p>
-<p>之后在命令行里输git clone + 那个复制的url</p>
-<pre class=" language-sh"><code class="language-sh">e:\Git>git clone https://github.com/zhiyan93/individual.git</code></pre>
-<ul>
-<li><h3 id="用add命令给repository目录添加文件"><a href="#用add命令给repository目录添加文件" class="headerlink" title="用add命令给repository目录添加文件"></a>用add命令给repository目录添加文件</h3>这里在文件目录下加了一个叫123.txt的文件, 你的其他project文件也是一样的道理.</li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/add1.png" alt="add new file" width="200"></p>
-<p>可以先用status命令查看一下</p>
-<pre class=" language-sh"><code class="language-sh">git status</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add2.png" alt="status" width="500"></p>
-<p>显示有一个文件Untrack.</p>
-<p>再用git add . 把这个文件加进去, 并查看状态</p>
-<pre class=" language-sh"><code class="language-sh">git add .
-git status</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add3.png" alt="added status" width="400"></p>
-<p>这个文件就被加到local repository了. </p>
-<ul>
-<li><h3 id="用commit保存本地修改"><a href="#用commit保存本地修改" class="headerlink" title="用commit保存本地修改"></a>用commit保存本地修改</h3></li>
-</ul>
-<p>之后再用git commit -m定一下这个版本, 用git push上传到remote repository.</p>
-<pre class=" language-sh"><code class="language-sh">git commit -m "add 123.txt file"
-git push</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add4.png" alt="commit" width="500"></p>
-<p>打开GitHub网站,就能看到这个文件添加了进去, 点commit tab能看到每一次commit的记录.<br><img src="/2020/01/19/gitinstruction/add5.png" alt="commit record" width="500"></p>
-<p>每一次改动之后用commit和push把本地的代码上传就行了.</p>
-<ul>
-<li><h3 id="用GitHub-Desktop或git-diff查看改动"><a href="#用GitHub-Desktop或git-diff查看改动" class="headerlink" title="用GitHub Desktop或git diff查看改动"></a>用GitHub Desktop或git diff查看改动</h3>用GitHub desktop这个软件能比较方便的看出来文件改了哪些地方, 比如我们再123.txt这个文件里输入12345678并保存, 打开GitHub desktop, 能看到这个change, 可以在这里直接commit + push, 也可以再命令行里做, 效果一样.</li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/add6.png" alt="GitHub Desktop" width="500"></p>
-<p>这个比较改动也可以再命令行里用git diff来看, 但是显示效果没有在GitHub desktop里面的好. 比如我们再在123.txt文件里加上90, 输入 git diff.</p>
-<pre class=" language-sh"><code class="language-sh">git diff</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add7.png" alt="git diff" width="400"></p>
-<p>也能看出来改了哪些地方. 最后可以用git log –oneline看看之前的操作记录.</p>
-<p>个人使用的话会这些基本够用了, 大多数情况下也就用的这些.</p>
-<h2 id="3-小型团队合作"><a href="#3-小型团队合作" class="headerlink" title="3.  小型团队合作"></a>3.  小型团队合作</h2><ul>
-<li><h3 id="collaborator模式"><a href="#collaborator模式" class="headerlink" title="collaborator模式"></a>collaborator模式</h3>用GitHub和其他人合作主要分两种模式, 一个是简单点的Collaborator模式, 就两三个人的话用这种模式比较高效. 一个是比较复杂的Contributer模式. Collaborator模式就是团队中的每个人都可以对这个repository push, 不需要pull request, 不需要其他人审查. 免费的GitHub账号最多可以在一个repository里设置三个Collabortor. 我用学校的邮箱注册过一个GitHub的账号, 这里邀请我的那个账号作为Collaborator.</li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/group3.png" alt="invite collaborator" width="400"></p>
-<p>在setting里找到这个界面, 点击invite, 然后点copy invite link, 把那个链接发给要和你合作的那个人, 他点了这个链接相当于同意合作. 之后的效果是这个repository虽然是private的, 对于其他人都不可见, 但是Collaborator都可以看见. </p>
-<p><img src="/2020/01/19/gitinstruction/group4.png" alt="collaboration repo" width="400"></p>
-<p>上面这个图就是登录了学校的GitHub账号zhiyan18(图标1),并点击zhiyan93的GitHub账号(图标2)后看到的效果. zhiyan93的标记为private的repository可见了.</p>
-<p>之后的使用方法和个人使用的差不多, 也是Git clone 到本地, 然后修改, git commit, git push 那一套流程.</p>
-<p>我把123.txt那个文件里的文字用两个GitHub账号分别修改了一下, 然后push, 打开Commits界面, 就会看到如下图的现象. 两个头像分别Commit.</p>
-<p><img src="/2020/01/19/gitinstruction/group5.png" alt="commits" width="400"></p>
-<ul>
-<li><h3 id="处理conflict"><a href="#处理conflict" class="headerlink" title="处理conflict"></a>处理conflict</h3>还有一种情况, 就是比如A修改了一段程序, push了, B也修改了, 但是修改的和A不一样, B在push的时候会出现conflict, git会提示这个conflict. 这时候B需要先pull, 把A做的修改合并到B的local repository, 再push. pull其实完成了fetch和merge两步操作, 即pull = fetch + merge. </li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/group7.png" alt="basic three repos" width="400"></p>
-<p>如果B觉得A的更新有问题, 可以先用fetch把改动从云端的repository下载到本地的repository, 再用git diff查看A修改了哪些地方, 确定没问题了, 再merge. 如果B修改了A的更新, A需要再使用pull来保持本地的代码和云端的一致.</p>
-<p>举个例子, 原来123.txt的文件内容是”zhiyan18 123”, 我先用zhiyan93的账号把123.txt文件的内容更新成” zhiyan18 123456 “, commit, push, 再用zhiyan18的账号把文件内容改成”zhiyan18 123789”, 这个时候是push不了的, 提示需要先pull. </p>
-<p>使用GitHub Desktop push, 会提示有conflict, 这个时候会在文件里加入提示文字.</p>
-<p><img src="/2020/01/19/gitinstruction/group8.png" alt="conflict in GitHub Desktop" width="400"></p>
-<p>点击用visual studio code打开</p>
-<p><img src="/2020/01/19/gitinstruction/group9.png" alt="conflict in vscode" width="500"></p>
-<p>可以点击visual studio code 自带的合并工具提供的选项, 比如如果点击Accept Both Changes,就会把这两行都保留, 然后push, 可以在GitHub上看到如下效果.</p>
-<p><img src="/2020/01/19/gitinstruction/group10.png" alt="accept both" width="400"></p>
-<p> 一张图总结以上流程:</p>
-<p><img src="/2020/01/19/gitinstruction/workflow.png" alt="basic work flow" width="500"></p>
-<ul>
-<li><h3 id="gitignore处理私密文件"><a href="#gitignore处理私密文件" class="headerlink" title="gitignore处理私密文件"></a>gitignore处理私密文件</h3>在团队合作中, 另一个需要考虑的问题就是很多文件不能分享, 比如用的很多API的secret key, 或者一些数据. 这时候可以用gitignore来解决.<br>举个例子.<br>在文件夹里有一个secret.txt的文件, 这个文件我们不想被别人看见. 新建一个名为.gitignore的文件, 在文件里写上”secret.txt”, 保存. </li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/ignore1.png" alt="gitignore" width="300"></p>
-<p>把.gitignore这个文件加到repository里. 在命令行里输:</p>
-<pre><code>git add .gitignore
-git commit -m "add gitignore" </code></pre><p>这时候gitignore里的文件就都被忽略了, 用” git add . “也不会添加这个文件. 这个gitignore里还可以用符号匹配一些模式. 比如星号” * “是wildcard可以匹配任意字符. 这里的” /file.txt “并不表示子目录下的file.txt, 因为默认就会匹配所有子目录的文件, 这里斜杠的意思是只匹配根目录下的file.txt文件.</p>
-<p>我们用” git log –oneline “来看看操作记录.</p>
-<p><img src="/2020/01/19/gitinstruction/gitlog.png" alt="git log" width="500"></p>
-<ul>
-<li><h3 id="Project-Board-任务安排"><a href="#Project-Board-任务安排" class="headerlink" title="Project Board 任务安排"></a>Project Board 任务安排</h3>几个人合作时, 还可以点击repository的priject tab使用GitHub自带的Project Board功能. 用这个可以做一些简单的项目管理, 比如任务的安排和分配之类的, 提高合作者之间的沟通效率. 下图是我建立了一个tasks的to do column和包括zhiyan93, zhiyan18的两个progress column, 可以用鼠标拖动task来分配给每个人去做.</li>
-</ul>
-<p><img src="/2020/01/19/gitinstruction/group6.png" alt="project board" width="500"></p>
-<p>最后要明白几个概念, 当我们用GitHub的时候, 每个人的代码其实有三份, 分别是云端的repository(remote), 本地的repository(local), 本地你正在写的那一份(working copy). 云端的那份在Git里叫做origion. 所以带origion的命令, 比如会有:</p>
-<pre><code>git push origion master 
-git push origion develop</code></pre><p>就是分别push到remote端的master branch和develop branch. 通常简单使用的话不需要分支, 直接就用 git push就好. 其他的操作同理.</p>
-<p><img src="/2020/01/19/gitinstruction/open1.png" alt="basic terms" width="500"></p>
-<p>每次你用commit命令, 实际上是把working copy覆盖到local repository, 每次你用push或者fetch, pull命令, 实际上是local repository与remote repository在进行同步.<br>两三个人合作的话会这些基本差不多了.</p>
-<h2 id="4-大型团队合作或开源项目"><a href="#4-大型团队合作或开源项目" class="headerlink" title="4.  大型团队合作或开源项目"></a>4.  大型团队合作或开源项目</h2><p>我自己并没有用GitHub与其他人一起合作大型项目的经验, 所以这里写的只是我通过学习一些资料, 总结的一些基本操作. 详细的内容可以参考这几篇文章 </p>
-<p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">https://nvie.com/posts/a-successful-git-branching-model/</a> </p>
-<p><a href="https://medium.com/@ruthmpardee/git-fork-workflow-using-rebase-587a144be470" target="_blank" rel="noopener">https://medium.com/@ruthmpardee/git-fork-workflow-using-rebase-587a144be470</a></p>
-<ul>
-<li><h3 id="branch-model简介"><a href="#branch-model简介" class="headerlink" title="branch model简介"></a>branch model简介</h3></li>
-</ul>
-<p>多人合作的一个基本概念就是Branch, 除了hotfix之外, 添加feature不会在master branch上直接修改. 这个master branch是一个稳定的版本, 供用户去使用的(production). 开发者会从develop branch上fork, 建立自己的分支, 然后在自己的分支上做自己的修改, commit之后push. </p>
-<p>多人合作中, 除了以上提及到的三套代码(remote repository, local repository, working copy) 之外, 还有upstream repository. upstream 就是owner账号下的那一套代码, 用其他账号不能随意修改, 只能用branch提出pull request, 然后owner同意merge.</p>
-<p>开源项目中每个人都使用自己的GitHub账号, 需要设置几个人当code reviewer, 来决定其他人写的branch能不能合并到develop branch, 并决定把develop branch 合并到master branch.</p>
-<p><img src="/2020/01/19/gitinstruction/group2.png" alt="branching model" width="500"></p>
-<p>主要用到的命令:</p>
-<pre><code>git branch -a  //显示所有local branch
-git branch feature1   //新建名为feature1的branch
-git checkout -b feature1   //新建并切换到名为feature1的branch
-git checkout feature1   //切换到名为feature1的branch
-
-git remote add upstream [url of upstream]   //设置upstream repository
-git pull --rebase upstream master   //检查upstream上有没有其他人更新, 并把更新同步到本地
-git push origin feature1   //把更新push到你自己的remote repository feature1 branch
-git checkout master   //切换到master branch
-git push origin master   //跟新你自己的remote repository master branch
-git branch -d feature1   //删除feature1 branch</code></pre><ul>
-<li><h3 id="简单开源项目操作举例"><a href="#简单开源项目操作举例" class="headerlink" title="简单开源项目操作举例"></a>简单开源项目操作举例</h3></li>
-</ul>
-<p>举个例子:</p>
-<ol>
-<li><p>新建. 我用zhiyan18的账号新建了一个repository,名为group, 设置成public. </p>
-</li>
-<li><p>fork. 用zhiyan93的账号找到这个repository, 点击右上角的fork按钮 <img src="/2020/01/19/gitinstruction/fork.png" alt="" width="80"> , 把这个repository复制到zhiyan93账号下. 这里zhiyan18这个账号就是owner, zhiyan93这个账号是contributor (区别于之前讲的collaborator).</p>
-</li>
-<li><p>clone. 用zhiyan93这个账号clone 自己账号上的这个repository到本地.</p>
-</li>
-<li><p>upstream. 设置这个repository的upstream, 这样如果owner的代码被其他人更新了, 我们可以很方便的更新自己的repository, 加入别人的改动.</p>
-<pre><code>git remote add upstream https://github.com/zhiyan18/group.git</code></pre></li>
-<li><p>feature branch. 先确保在master branch上, 然后以master branch为基础, 新建一个名为feature1的branch, 在这个branch上修改程序. 不能直接在master branch上修改, 每次新的feature都要新建一个临时的branch, pull request被接受之后要删除.</p>
-<pre><code>git checkout master
-git checkout -b feature1</code></pre><p>这个时候用</p>
-<pre><code>git branch -a
-git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你需要编辑的分支. 每个分支都可以看作一套独立的代码.<br><img src="/2020/01/19/gitinstruction/allbran.png" alt="all branches" width="400"></p>
-</li>
-<li><p>edit branch. 这里我加入了一个txt文件.</p>
-</li>
-<li><p>pull. 检查upstream的master代码有没有更新.</p>
-<pre><code>git pull --rebase upstream master</code></pre><p>这里设置了参数rebase, 这个参数有两个用处. 一个是你自己的commit和其他人的commit不会按照时间的先后混在一起, 把你的commit message全部放在当前其他人的commit之后, 便于阅读. 另一个是log里不会显示你的merge commit.</p>
-</li>
-<li><p>push. 把feature1分支push到contributor的remote repository.</p>
-<pre><code>git push origin feature1</code></pre><p><img src="/2020/01/19/gitinstruction/pushfeature.png" alt="push feature to origin" width="500"></p>
-</li>
-<li><p>pull request. push之后, 在contributor的GitHub网站页面上, 切换到pull request tab, 可以看到有new pull request的按钮, 点击这个按钮, 就能向owner发起pull request.</p>
-</li>
-</ol>
-<p><img src="/2020/01/19/gitinstruction/request.png" alt="pull request" width="500"></p>
-<p><img src="/2020/01/19/gitinstruction/request2.png" alt="open pull request" width="500"></p>
-<p>在owner账户(zhiyan18)那一端, 可以看见这个pull request.</p>
-<p><img src="/2020/01/19/gitinstruction/mergepull.png" alt="merge pull request" width="500"></p>
-<p>GitHub检查没有conflict之后, owner可以点击”Merge pull request”, 这个feature1 branch就被合并到了master branch.</p>
-<p><img src="/2020/01/19/gitinstruction/added.png" alt="file added" width="500"></p>
-<ol start="10">
-<li>push origin master. 这个时候虽然我们的pull request被接受, upstream的master branch更新了, 但是contributor的remote端还没有更新. 可以看到下图左上角有一行提示, “This branch is 2 commits behind behind zhiyan18 master”</li>
-</ol>
-<p><img src="/2020/01/19/gitinstruction/beforeadd.png" alt="origin master" width="500"></p>
-<p>可以从upstream pull, 也可以从本地的代码push.</p>
-<pre><code>git push origin master</code></pre><ol start="11">
-<li>删除feature1 branch<pre><code>git branch -d feature1</code></pre></li>
-</ol>
-<p>以上只是涉及到了开源项目中最基本的操作, 实际的情况要复杂很多, 我也不是搞得很懂, 只是把我知道的一些知识分享给大家.<br>谢谢!</p>
+                <p>废寝忘食做了一个半月的IE毕业设计总算是搞完了。 之后会陆续总结一些学到的东西，帮助一些搞不懂这些问题的人，也是怕自己忘了。<br>先说iOS程序里的一个很基本的功能，scrollview。这个东西其实不难，网上能搜到很多教你怎么做的，我视频加文字看了七八篇吧，但是只是教你一步步去做罢了，能把道理讲清楚的不多。</p>
+<h2 id="1-怎么做出来"><a href="#1-怎么做出来" class="headerlink" title="1.  怎么做出来"></a>1.  怎么做出来</h2><p>  做scrollview简单来说就是一句话，“八0两等一弱”，简称821.</p>
+<p>  先在一个空的View上放一个ScrollView，在这个scrollview的size inspector界面把这个Content Layout Guides选项去掉。</p>
+<p>  <img src="/2020/05/20/scrollview/layoutguide.png" alt="layoutguide" width="300"></p>
+<p> 这时候View的结构如下所示。</p>
+<p>  <img src="/2020/05/20/scrollview/viewstructure1.png" alt="constraints1" width="300"></p>
+<p>拖动这个ScrollView的四条边，分别和空白View的SafeArea对齐，然后在ScrollView的Constraints面板上设置到空白View的四个边距离都为0.<br><img src="/2020/05/20/scrollview/cons1.png" alt="constraints1" width="300"></p>
+<p>在Library里找到View，放到ScrollView里。</p>
+<p><img src="/2020/05/20/scrollview/ContentView.png" alt="ContentView" width="300"></p>
+<p>这时候的View Structure是这样的：</p>
+<p><img src="/2020/05/20/scrollview/ViewStructure2.png" alt="ViewStructure2" width="300"></p>
+<p>为了不搞混，这里把这个View的名字改成ContentView（选中这个View，一秒之后再点击一下可以改名）</p>
+<p><img src="/2020/05/20/scrollview/renamecontent.png" alt="rename" width="300"></p>
+<p>和之前一样，我们也把这个ContentView的四边和ScrollView的四边对齐，然后设置边的constraints，设置四个0.</p>
+<p><img src="/2020/05/20/scrollview/cons2.png" alt="constraints2" width="300"></p>
+<p>以上总共设置了八个0，这个就是821的8.</p>
+<p>选中ContentView，按住Control并拖动到ScrollView，再弹出的窗口中选择””Equal Widths”</p>
+<p><img src="/2020/05/20/scrollview/equalwidth.png" alt="equalwidth" width="300"></p>
+<p>重复上述步骤，在弹出窗口中选择“Equal Heights”</p>
+<p>这个时候View界面上是不会出现红色的错误提示的，Constraints Structure现在如下图所示。</p>
+<p><img src="/2020/05/20/scrollview/structure3.png" alt="structure3" width="300"></p>
+<p>以上步骤设置了两个相等，equal widths和equal height，就是821的2。</p>
+<p>这时候在view structure里点击这个ContentView, 并选中它的高度</p>
+<p><img src="/2020/05/20/scrollview/viewheight1.png" alt="viewheight1" width="300"></p>
+<p>在右侧的size inspector选项卡里把这个高度的Priority值设置成Low(250)</p>
+<p><img src="/2020/05/20/scrollview/hightsizelow.png" alt="hightsize" width="300"></p>
+<p>这时候这个ContentView的Height就从实线变成了虚线。</p>
+<p><img src="/2020/05/20/scrollview/viewheight2.png" alt="hightsize" width="300"></p>
+<p>以上步骤设置了一个Low priority，就是821里面的1.</p>
+<p>这时候这个ScrollView就设置完成了，我们可以加点东西来测试一下。我们放两个Button，一个靠上面，一个靠下面（我调了颜色）。</p>
+<p><img src="/2020/05/20/scrollview/twobutton.png" alt="hightsize" width="300"></p>
+<p>上面的Button指定它和ContentView的上左右三个距离和它的高度<br><img src="/2020/05/20/scrollview/btnconstraint1.png" alt="hightsize" width="300"></p>
+<p>下面的Button指定它和ContentView的下左右三个距离和它的高度<br><img src="/2020/05/20/scrollview/btnconstraint2.png" alt="hightsize" width="300"></p>
+<p>之后选中一个Button，按住Control，拖动到另一个Button，在弹出的窗口中选择”Vertical Specing”</p>
+<p><img src="/2020/05/20/scrollview/verticalspecing.png" alt="hightsize" width="300"></p>
+<p>选中这个两个Button之间的Constraint</p>
+<p><img src="/2020/05/20/scrollview/verticalcons.png" alt="vertical constraints" width="300"></p>
+<p>在右侧size inspector界面里把这个Constant的值改一个大点的值(我这里改成了1200)</p>
+<p><img src="/2020/05/20/scrollview/verticalvalue.png" alt="vertical constraints" width="300"></p>
+<p>之后可以看到下面的按钮跑到界面下面去了, 选中ContentView，滑动鼠标可以看到下面的那部分ContentView。</p>
+<p><img src="/2020/05/20/scrollview/valuechanged.png" alt="vertical constraints" width="300"></p>
+<p>这个时候我们运行这个程序，其实就可以看到上面的这个页面的Scroll效果。</p>
+<p>有时候我们为了编辑的方便，特别是页面上东西多了之后，把界面上的完整显示会好一点. 我们可以把这个界面的ViewController的Simulated Size从Fixed改成Freeform，并给它一个很大的值，这个值要大于等于你ContentView里面的高度加vertical specing距离之和（我这里是1500）</p>
+<p><img src="/2020/05/20/scrollview/viewcontrollersize.png" alt="vertical constraints" width="300"></p>
+<p>设置之后的界面如下，这时候你如果想编辑这两个Button，就不用滑来滑去了。</p>
+<p><img src="/2020/05/20/scrollview/vcchangedview.png" alt="vertical constraints" width="300"></p>
+<h2 id="2-背后的道理"><a href="#2-背后的道理" class="headerlink" title="2. 背后的道理"></a>2. 背后的道理</h2><p>背后的道理其实很简单，我们先回顾一下这个821设置了什么。这个8其实就是设置了View，ScrollView，ContentView这三者之间的大小是完全贴合的(因为都是0), 如果不要贴合的话也可以设置成其他的值. 类似于手机壳，手机，手机膜的关系。这个时候我们只是设置了全贴合，但是没有给定具体宽高尺寸，而ScrollView需要指定宽高尺寸，2就是在给定这个尺寸。当我们设置equal widths的时候，实际上是设定了ScrollView的宽度等于ContentView的宽度，因为我们不需要横向滚动，所以这个值就是固定的。equal height同样的道理，但是我们需要纵向滚动，并且滚动的范围还不能确定，因此我们这里设置成equal height之后还要设置成Low Priority，即ScrollView的高度由ContentView来决定，ContentView本身的高度是Low Priority的，ContentView里面的vertical specing和Button的高度，这些都是High Priority的，因此ContentView的高度会先满足里面东西需要的高度，从而使ScrollView的滚动范围也满足里面东西需要的高度。</p>
+<p>有时候要显示一段文字，用TextView，不知道要显示文字的长短，想要动态的TextView高度，这个时候把ScrollingEnable unselect（Scrolling里面的东西都不选），然后不用给定这个TextView的高度，这个TextView的高度就是动态的了。</p>
+<p><img src="/2020/05/20/scrollview/textview.png" alt="vertical constraints" width="300"></p>
+<p>最后给大家留一个思考的问题，既然ContentView和ScrollView完全贴合，那么我把ScrollView背景色改成红色，在程序中可以看见这个红色吗。很简单，试试就知道。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -593,7 +477,7 @@ git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhiyan93.github.io/2020/01/19/gitinstruction/">http://zhiyan93.github.io/2020/01/19/gitinstruction/</a>
+                    <a href="http://zhiyan93.github.io/2020/05/20/scrollview/">http://zhiyan93.github.io/2020/05/20/scrollview/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -799,7 +683,7 @@ git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你�
         repo: 'blogtalk',
         owner: 'zhiyan93',
         admin: "zhiyan93",
-        id: '2020-01-19T11-04-10',
+        id: '2020-05-20T23-49-45',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -820,67 +704,29 @@ git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2020/02/18/iosarc/">
+                <a href="/2020/05/20/scrollview/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="浅谈Swift内存管理">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="scrollview">
                         
-                        <span class="card-title">浅谈Swift内存管理</span>
+                        <span class="card-title">scrollview</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            浅谈Swift内存管理主要内容参考这几篇文章：
-https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html
-https://swiftroc
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-18
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Zhiyan Liu
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/01/19/gitinstruction/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GitHub新手笔记">
-                        
-                        <span class="card-title">GitHub新手笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            GitHub 新手笔记1.  简介GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫Git
+                            废寝忘食做了一个半月的IE毕业设计总算是搞完了。 之后会陆续总结一些学到的东西，帮助一些搞不懂这些问题的人，也是怕自己忘了。先说iOS程序里的一个很基本的功能，scrollview。这个东西其实不难，网上能搜到很多教你怎么做的，我视频加文字
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-20
                             </span>
                         <span class="publish-author">
                             
@@ -891,6 +737,43 @@ https://swiftroc
                     </div>
                 </div>
 
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/03/29/covidtracker/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Spring Boot实现新冠肺炎病例数展示">
+                        
+                        <span class="card-title">Spring Boot实现新冠肺炎病例数展示</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SpringBoot实现新冠肺炎病例数展示现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.y
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-29
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Zhiyan Liu
+                            
+                        </span>
+                    </div>
+                </div>
                 
             </div>
         </div>
