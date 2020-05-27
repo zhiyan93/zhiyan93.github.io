@@ -1,356 +1,543 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-
-
+<!DOCTYPE HTML>
+<html lang="en">
 
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^">
-  <meta name="author" content="Zhiyan Liu">
-  <meta name="keywords" content="">
-  <title>浅谈Swift内存管理 - Zhiyan&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+    <meta charset="utf-8">
+    <meta name="keywords" content="浅谈Swift内存管理, Zhiyan&#39;s Blog">
+    <meta name="description" content="90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <title>浅谈Swift内存管理 | Zhiyan&#39;s Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
 
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
-
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
+    <script src="/libs/jquery/jquery.min.js"></script>
 
 <meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Zhiyan's Blog</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/">
-              <i class="iconfont icon-home-fill"></i>
-              首页</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/archives/">
-              <i class="iconfont icon-archive-fill"></i>
-              归档</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/categories/">
-              <i class="iconfont icon-category-fill"></i>
-              分类</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/tags/">
-              <i class="iconfont icon-tags-fill"></i>
-              标签</a>
-          </li>
-        
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="/about/">
-              <i class="iconfont icon-user-fill"></i>
-              关于</a>
-          </li>
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container text-center white-text fadeInUp">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              
-                <div class="mt-3 post-meta">
-                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-02-18 13:52">
-                    2020年2月18日 下午
-                  </time>
-                </div>
-              
-
-              <div class="mt-1">
-                
-                  
-                  <span class="post-meta mr-2">
-                    <i class="iconfont icon-chart"></i>
-                    2.4k 字
-                  </span>
-                
-
-                
-                  
-                  <span class="post-meta mr-2">
-                      <i class="iconfont icon-clock-fill"></i>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
                     
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    31
-                     分钟
-                  </span>
-                
-
-                
-              </div>
+                    <span class="logo-span">Zhiyan&#39;s Blog</span>
+                </a>
+            </div>
             
-          </div>
 
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
     
+    <a href="/" class="waves-effect waves-light">
       
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zhiyan&#39;s Blog</div>
+        <div class="logo-desc">
             
-            <article class="markdown-body">
-              <h1 id="浅谈Swift内存管理"><a href="#浅谈Swift内存管理" class="headerlink" title="浅谈Swift内存管理"></a>浅谈Swift内存管理</h1><p>主要内容参考这几篇文章：</p>
+            90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">浅谈Swift内存管理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2020-02-18
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="浅谈Swift内存管理"><a href="#浅谈Swift内存管理" class="headerlink" title="浅谈Swift内存管理"></a>浅谈Swift内存管理</h1><p>主要内容参考这几篇文章：</p>
 <p><a href="https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html" target="_blank" rel="noopener">https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html</a></p>
 <p><a href="https://swiftrocks.com/memory-management-and-performance-of-value-types.html" target="_blank" rel="noopener">https://swiftrocks.com/memory-management-and-performance-of-value-types.html</a></p>
 <p>本文有一定难度, 并不是面向Swift初学者。</p>
 <h2 id="1-Swift-数据类型"><a href="#1-Swift-数据类型" class="headerlink" title="1.  Swift 数据类型"></a>1.  Swift 数据类型</h2><p>在swift中的数据类型，被分为两种， 一种叫value type， 一种叫reference type。这个value type就是每次赋值的时候传递值，创建一个新的copy， 每个copy之间没有关联，类似于Java中的primitive type；这个reference type就是每次赋值的时候会传递引用， 所有的引用会指向同一个内存中的值， 类似于Java中的non-primitive type。下图显示了常见的Value Type和Reference Type。</p>
-<p><img src="/2020/02/18/iosarc/types.png" srcset="/img/loading.gif" alt="swift data types" width="400"></p>
+<p><img src="/2020/02/18/iosarc/types.png" alt="swift data types" width="400"></p>
 <h2 id="2-ARC简介"><a href="#2-ARC简介" class="headerlink" title="2.  ARC简介"></a>2.  ARC简介</h2><p>Swift的内存管理机制叫Automatic Reference Counting, 简称ARC。这个ARC比较特殊，与常见的其他语言如C/C++或者Java/C#不一样。常见的编程语言中，内存的分配是由程序来做的，比如定义一个变量，就得分配一块内存空间，不一样的地方在于内存的释放。C/C++中，内存的释放需要程序员手动进行，可玩性比较高，但有时候会出现分配的内存无法访问也无法释放的问题，造成内存泄漏。 </p>
 <p>Java/C#内存管理机制叫Garbage Collect, 简称GC，在runtime虚拟机会进行GC process，这个GC process 比较复杂，而且在不同的虚拟机上实现的方法不同。有的是用引用计数器的方式执行，有的是用事件触发的方式执行，这个GC process本身需要花费一定的系统资源。ARC其实是对GC进行了一定的改进, 也是计数对象的引用个数，引用个数为0时，释放内存。ARC的过程是放在compile time的，swift compiler 在编译的过程中，在你的程序里自动插入一些用于释放内存的代码，运行的时候不再进行检查。 </p>
 <h2 id="3-stack-memory-vs-heap-memory"><a href="#3-stack-memory-vs-heap-memory" class="headerlink" title="3.  stack memory vs heap memory"></a>3.  stack memory vs heap memory</h2><p>内存，就是电脑ARM中的空间， 在Swift中的逻辑上分为两种，一种叫stack memory， 一种叫heap memory。stack memory在栈上存储数据，需要数据的大小是个定值, 并且遵循先进后出的原则, 数据按照顺序排列，数据释放的时候就是这个数据对应的scope结束的时候, scope是静态的因此又被称作静态内存。比如一个method里的局部变量，在这个method被调用的时候被创建，在栈上分配一块区域，栈顶指针移动到这个数据区域的顶部，当这个method返回了以后，栈顶指针移动到这个数据区域的底部，释放这些局部变量。当method嵌套的时候，被调用的method后分配空间，先被释放。heap memory在heap上存储数据, 数据的大小是可变的，数据是非线性排列的, 分配释放的开销都比较高，scope是动态的，因此又被称为动态内存. 因此当我们在讨论内存管理的问题的时候，实际上就是在说heap memory上的数据如何释放的问题。</p>
 <p>通常来说，stack memory中存储的是value type data, heap memory中存储的是reference type data. 但是对于String，Array，Dictionary，Set这几种数据类型，虽然属于value type，实际上长度都是不确定的，需要有一个内部的reference type来管理element的存储, 这个reference type在heap上。并且利用这个内部的reference type，Swift在执行copy这几种value type data的时候，采用了copy-on-write的优化。也就是说因为value type需要值传递，每次传递的时候要创建一个新的copy, 分配一个新的内存空间, 如果有很多String具有相同的值, 也就是说赋值之后没有去改变这个值, 就会造成内存空间的浪费. 使用copy-on-write之后, String传递值的时候实际上会先传递一个引用, 等到这个传递的值需要改变的时候, 再立即复制一个copy, 改变值, 传递这个值. 在逻辑上, 是值传递的过程, 但实际会有传递引用的过程. </p>
-<pre class=" language-hljs swift"><span class="hljs-comment"><code class="language-hljs swift"><span class="hljs-comment">//Copy on Assignment</span>
-<span class="hljs-keyword">let</span> emptyStruct = <span class="hljs-type">EmptyStruct</span>() <span class="hljs-comment">//address A</span>
-<span class="hljs-keyword">let</span> copy = emptyStruct <span class="hljs-comment">//address B</span>
+<pre class=" language-swift"><code class="language-swift"><span class="token comment" spellcheck="true">//Copy on Assignment</span>
+<span class="token keyword">let</span> emptyStruct <span class="token operator">=</span> <span class="token function">EmptyStruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//address A</span>
+<span class="token keyword">let</span> copy <span class="token operator">=</span> emptyStruct <span class="token comment" spellcheck="true">//address B</span>
 
-<span class="hljs-comment">//Copy on Write</span>
-<span class="hljs-keyword">let</span> array = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>] <span class="hljs-comment">//address C</span>
-<span class="hljs-keyword">var</span> notACopy = array <span class="hljs-comment">//still address C</span>
-notACopy = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>] <span class="hljs-comment">//now address D</span></code></pre>
-
+<span class="token comment" spellcheck="true">//Copy on Write</span>
+<span class="token keyword">let</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//address C</span>
+<span class="token keyword">var</span> notACopy <span class="token operator">=</span> array <span class="token comment" spellcheck="true">//still address C</span>
+notACopy <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//now address D</span></code></pre>
 <p>在Swift的线程(thread)之间, heap memory是共享的, 而stack memory不共享, 每个thread有自己的stack memory. Swift中大部分都是能够值传递的value type data， 并且Swift鼓励大家能用value type就不用reference type, 这样一方面内存能得到优化, 另一方面又能够解决多线程之间冲突的问题, 还利于搞unit test. 因此如果一个class不需要Inheritance或者Type casting, 最好用struct代替。</p>
 <h2 id="3-Strong-Reference-Cycle"><a href="#3-Strong-Reference-Cycle" class="headerlink" title="3.  Strong Reference Cycle"></a>3.  Strong Reference Cycle</h2><p>之前已经介绍过Swift的ARC机制，这种机制实际上存在一个问题，就是当两个或者几个object相互引用，形成一个引用环路。在环路上，如果要释放其中一个，需要先释放引用他的那个，按照这个环转了一圈又能转回来，导致这个环上的哪个object都释放不了。<br>例如这两个类：</p>
-<pre class=" language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title"><code class="language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
-    <span class="hljs-keyword">let</span> name: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">init</span>(name: <span class="hljs-type">String</span>) { <span class="hljs-keyword">self</span>.name = name }
-    <span class="hljs-keyword">var</span> apartment: <span class="hljs-type">Apartment?</span> <span class="hljs-comment">//引用Apartment</span>
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"\(name) is being deinitialized"</span>) }
-}
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">self</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> apartment<span class="token punctuation">:</span> <span class="token builtin">Apartment</span><span class="token operator">?</span> <span class="token comment" spellcheck="true">//引用Apartment</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"<span class="token interpolation"><span class="token delimiter variable">\(</span>name<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apartment</span> </span>{
-    <span class="hljs-keyword">let</span> unit: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">init</span>(unit: <span class="hljs-type">String</span>) { <span class="hljs-keyword">self</span>.unit = unit }
-    <span class="hljs-keyword">var</span> tenant: <span class="hljs-type">Person?</span> <span class="hljs-comment">//引用Person</span>
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"Apartment \(unit) is being deinitialized"</span>) }
-}</code></pre>
+<span class="token keyword">class</span> <span class="token class-name">Apartment</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> unit<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>unit<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">self</span><span class="token punctuation">.</span>unit <span class="token operator">=</span> unit <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> tenant<span class="token punctuation">:</span> <span class="token builtin">Person</span><span class="token operator">?</span> <span class="token comment" spellcheck="true">//引用Person</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Apartment <span class="token interpolation"><span class="token delimiter variable">\(</span>unit<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p>分别创建这两个类的instance并释放</p>
-<pre class=" language-hljs swift"><span class="hljs-keyword">var</span> john: <span class="hljs-type"><code class="language-hljs swift"><span class="hljs-keyword">var</span> john: <span class="hljs-type">Person?</span>
-<span class="hljs-keyword">var</span> unit4A: <span class="hljs-type">Apartment?</span>
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">var</span> john<span class="token punctuation">:</span> <span class="token builtin">Person</span><span class="token operator">?</span>
+<span class="token keyword">var</span> unit4A<span class="token punctuation">:</span> <span class="token builtin">Apartment</span><span class="token operator">?</span>
 
-john = <span class="hljs-type">Person</span>(name: <span class="hljs-string">"John Appleseed"</span>)
-unit4A = <span class="hljs-type">Apartment</span>(unit: <span class="hljs-string">"4A"</span>)
+john <span class="token operator">=</span> <span class="token function">Person</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">"John Appleseed"</span><span class="token punctuation">)</span>
+unit4A <span class="token operator">=</span> <span class="token function">Apartment</span><span class="token punctuation">(</span>unit<span class="token punctuation">:</span> <span class="token string">"4A"</span><span class="token punctuation">)</span>
 
-john!.apartment = unit4A
-unit4A!.tenant = john
+john<span class="token operator">!</span><span class="token punctuation">.</span>apartment <span class="token operator">=</span> unit4A
+unit4A<span class="token operator">!</span><span class="token punctuation">.</span>tenant <span class="token operator">=</span> john
 
-john = <span class="hljs-literal">nil</span>
-unit4A = <span class="hljs-literal">nil</span></code></pre>
+john <span class="token operator">=</span> <span class="token constant">nil</span>
+unit4A <span class="token operator">=</span> <span class="token constant">nil</span></code></pre>
 <p>deinit这时候不会执行，output不会有结果显示。可以用Xcode自带的内存分析工具Debug Memory Graph来调试。</p>
-<p>点击  <img src="/2020/02/18/iosarc/graphm.png" srcset="/img/loading.gif" alt="new repository" width="200"> 按钮，在弹出的界面点击Person，可以看到如下的图：</p>
-<p><img src="/2020/02/18/iosarc/cyclem.png" srcset="/img/loading.gif" alt="strong reference cycle" width="500"> </p>
+<p>点击  <img src="/2020/02/18/iosarc/graphm.png" alt="new repository" width="200"> 按钮，在弹出的界面点击Person，可以看到如下的图：</p>
+<p><img src="/2020/02/18/iosarc/cyclem.png" alt="strong reference cycle" width="500"> </p>
 <p>如果删除第五行或者第六行的引用再运行，可以看到deinit的执行结果:</p>
-<pre class=" language-hljs sh"><code class="language-hljs sh">John Appleseed is being deinitialized
+<pre class=" language-sh"><code class="language-sh">John Appleseed is being deinitialized
 Apartment 4A is being deinitialized</code></pre>
-
 <p>要解决这个问题，需要把”Apartment” Class里的”tenant” Properity 加一个关键字weak。</p>
-<pre class=" language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title"><code class="language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>{
-    <span class="hljs-keyword">let</span> name: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">init</span>(name: <span class="hljs-type">String</span>) { <span class="hljs-keyword">self</span>.name = name }
-    <span class="hljs-keyword">var</span> apartment: <span class="hljs-type">Apartment?</span>
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"\(name) is being deinitialized"</span>) }
-}
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">self</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> apartment<span class="token punctuation">:</span> <span class="token builtin">Apartment</span><span class="token operator">?</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"<span class="token interpolation"><span class="token delimiter variable">\(</span>name<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Apartment</span> </span>{
-    <span class="hljs-keyword">let</span> unit: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">init</span>(unit: <span class="hljs-type">String</span>) { <span class="hljs-keyword">self</span>.unit = unit }
-    <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> tenant: <span class="hljs-type">Person?</span>
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"Apartment \(unit) is being deinitialized"</span>) }
-}</code></pre>
+<span class="token keyword">class</span> <span class="token class-name">Apartment</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> unit<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>unit<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">self</span><span class="token punctuation">.</span>unit <span class="token operator">=</span> unit <span class="token punctuation">}</span>
+    <span class="token keyword">weak</span> <span class="token keyword">var</span> tenant<span class="token punctuation">:</span> <span class="token builtin">Person</span><span class="token operator">?</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Apartment <span class="token interpolation"><span class="token delimiter variable">\(</span>unit<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p>这个关键字的作用是把strong reference变成weak reference，在释放的时候只会看strong reference的个数，Apartment没有了Person的strong reference，两个instance就都能释放了。</p>
-<p><img src="/2020/02/18/iosarc/graphweak.png" srcset="/img/loading.gif" alt="weak reference" width="600"> </p>
+<p><img src="/2020/02/18/iosarc/graphweak.png" alt="weak reference" width="600"> </p>
 <p>还有一个关键字，unowned，和weak作用差不多，唯一的区别是weak可以用在optional value，并且只能用var定义为variable，这个instance的值允许为nil；而owned只能用在non-optional value，可以用let定义为constant，这个instance的值不能为nil，一般是用在一个instance的lifetime一定会短于另一个的情况。比如人和信用卡，人可以没有信用卡，但是信用卡一定会有属于的人。</p>
-<pre class=" language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title"><code class="language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Customer</span> </span>{
-    <span class="hljs-keyword">let</span> name: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">var</span> card: <span class="hljs-type">CreditCard?</span>
-    <span class="hljs-keyword">init</span>(name: <span class="hljs-type">String</span>) {
-        <span class="hljs-keyword">self</span>.name = name
-    }
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"\(name) is being deinitialized"</span>) }
-}
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">class</span> <span class="token class-name">Customer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">var</span> card<span class="token punctuation">:</span> <span class="token builtin">CreditCard</span><span class="token operator">?</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
+    <span class="token punctuation">}</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"<span class="token interpolation"><span class="token delimiter variable">\(</span>name<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreditCard</span> </span>{
-    <span class="hljs-keyword">let</span> number: <span class="hljs-type">UInt64</span>
-    <span class="hljs-keyword">unowned</span> <span class="hljs-keyword">let</span> customer: <span class="hljs-type">Customer</span>
-    <span class="hljs-keyword">init</span>(number: <span class="hljs-type">UInt64</span>, customer: <span class="hljs-type">Customer</span>) {
-        <span class="hljs-keyword">self</span>.number = number
-        <span class="hljs-keyword">self</span>.customer = customer
-    }
-    <span class="hljs-keyword">deinit</span> { <span class="hljs-built_in">print</span>(<span class="hljs-string">"Card #\(number) is being deinitialized"</span>) }
-}
+<span class="token keyword">class</span> <span class="token class-name">CreditCard</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> number<span class="token punctuation">:</span> <span class="token builtin">UInt64</span>
+    <span class="token keyword">unowned</span> <span class="token keyword">let</span> customer<span class="token punctuation">:</span> <span class="token builtin">Customer</span>
+    <span class="token keyword">init</span><span class="token punctuation">(</span>number<span class="token punctuation">:</span> <span class="token builtin">UInt64</span><span class="token punctuation">,</span> customer<span class="token punctuation">:</span> <span class="token builtin">Customer</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>number <span class="token operator">=</span> number
+        <span class="token keyword">self</span><span class="token punctuation">.</span>customer <span class="token operator">=</span> customer
+    <span class="token punctuation">}</span>
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"Card #<span class="token interpolation"><span class="token delimiter variable">\(</span>number<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">var</span> john: <span class="hljs-type">Customer?</span>
-john = <span class="hljs-type">Customer</span>(name: <span class="hljs-string">"John Appleseed"</span>)
-john!.card = <span class="hljs-type">CreditCard</span>(number: <span class="hljs-number">1234_5678_9012_3456</span>, customer: john!)</code></pre>
-<p><img src="/2020/02/18/iosarc/unowned.png" srcset="/img/loading.gif" alt="unowned reference" width="600"> </p>
+<span class="token keyword">var</span> john<span class="token punctuation">:</span> <span class="token builtin">Customer</span><span class="token operator">?</span>
+john <span class="token operator">=</span> <span class="token function">Customer</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">"John Appleseed"</span><span class="token punctuation">)</span>
+john<span class="token operator">!</span><span class="token punctuation">.</span>card <span class="token operator">=</span> <span class="token function">CreditCard</span><span class="token punctuation">(</span>number<span class="token punctuation">:</span> <span class="token number">1234_5678_9012_3456</span><span class="token punctuation">,</span> customer<span class="token punctuation">:</span> john<span class="token operator">!</span><span class="token punctuation">)</span></code></pre>
+<p><img src="/2020/02/18/iosarc/unowned.png" alt="unowned reference" width="600"> </p>
 <p>Java的GC中有WeakReference和SoftReference, SoftReference强于WeakReference，每一次执行GC的时候，如果一个object只有WeakReference，就会被清理，如果一个object只有SoftReference，GC会根据算法以及内存剩余考虑是否清理。</p>
 <h2 id="4-Strong-Reference-Cycle-for-closures"><a href="#4-Strong-Reference-Cycle-for-closures" class="headerlink" title="4.  Strong Reference Cycle for closures"></a>4.  Strong Reference Cycle for closures</h2><p>Swift中的Closure相当于Java或者Python中的Lambda，就是一个匿名函数，用来让程序看上去更简洁。Closure在Swift里被当做Reference type，当一个instance里包含Closure，并且这个Closure用self引用了instance，这个时候也会造成Strong Reference Cycle.</p>
-<pre class=" language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title"><code class="language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HTMLElement</span> </span>{
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">class</span> <span class="token class-name">HTMLElement</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">let</span> name: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">let</span> text: <span class="hljs-type">String?</span>
+    <span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">let</span> text<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token operator">?</span>
 
-    <span class="hljs-built_in">lazy</span> <span class="hljs-keyword">var</span> asHTML: () -> <span class="hljs-type">String</span> = {
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> text = <span class="hljs-keyword">self</span>.text {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">"<\(self.name)>\(text)</\(self.name)>"</span>
-        } <span class="hljs-keyword">else</span> {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">"<\(self.name) />"</span>
-        }
-    }
+    <span class="token keyword">lazy</span> <span class="token keyword">var</span> asHTML<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">String</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> text <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>text <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"&lt;<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span>><span class="token interpolation"><span class="token delimiter variable">\(</span>text<span class="token delimiter variable">)</span></span>&lt;/<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span>>"</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"&lt;<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span> />"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">init</span>(name: <span class="hljs-type">String</span>, text: <span class="hljs-type">String?</span> = <span class="hljs-literal">nil</span>) {
-        <span class="hljs-keyword">self</span>.name = name
-        <span class="hljs-keyword">self</span>.text = text
-    }
+    <span class="token keyword">init</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token operator">?</span> <span class="token operator">=</span> <span class="token constant">nil</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        <span class="token keyword">self</span><span class="token punctuation">.</span>text <span class="token operator">=</span> text
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">deinit</span> {
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">"\(name) is being deinitialized"</span>)
-    }
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"<span class="token interpolation"><span class="token delimiter variable">\(</span>name<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-}</code></pre>
+<span class="token punctuation">}</span></code></pre>
 <p>例如在上面这个class HTMLElement中，定义了一个closure用来把name和text生成HTML tab, “</p><p>some text</p>“ 或者 “<p>“. 这里加了关键字lazy，起性能优化的作用，这样在instance创建的时候不会执行这个closure，只有在需要执行的时候才会被执行一次。lazy关键字只能加在variable之前，constant不能用。</p>
-<pre class=" language-hljs swift"><span class="hljs-keyword">var</span> paragraph: <span class="hljs-type">HTMLElement?</span> = <span class="hljs-type">HTMLElement</span>(name: <span class="hljs-string">"p"</span>, text: <span class="hljs-string"><code class="language-hljs swift"><span class="hljs-keyword">var</span> paragraph: <span class="hljs-type">HTMLElement?</span> = <span class="hljs-type">HTMLElement</span>(name: <span class="hljs-string">"p"</span>, text: <span class="hljs-string">"hello, world"</span>)
-<span class="hljs-built_in">print</span>(paragraph!.asHTML())
-<span class="hljs-comment">// Prints "<p>hello, world</p>"</span>
-paragraph = <span class="hljs-literal">nil</span> 
-<span class="hljs-comment">//不能调用deinit</span></code></pre>
-<p><img src="/2020/02/18/iosarc/closure.png" srcset="/img/loading.gif" alt="closure strong reference cycle" width="600"> </p>
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">var</span> paragraph<span class="token punctuation">:</span> <span class="token builtin">HTMLElement</span><span class="token operator">?</span> <span class="token operator">=</span> <span class="token function">HTMLElement</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">"p"</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token string">"hello, world"</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>paragraph<span class="token operator">!</span><span class="token punctuation">.</span><span class="token function">asHTML</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// Prints "&lt;p>hello, world&lt;/p>"</span>
+paragraph <span class="token operator">=</span> <span class="token constant">nil</span> 
+<span class="token comment" spellcheck="true">//不能调用deinit</span></code></pre>
+<p><img src="/2020/02/18/iosarc/closure.png" alt="closure strong reference cycle" width="600"> </p>
 <p>要解决这个问题，和两个instance之间的strong reference cycle类似，需要用weak或者unowned关键字来去掉其中一个strong reference。因为这个问题中有HTMLElement instance不一定会执行这个closure，而closure一定对应一个HTMLElement instance，closure的lifetime小于instance，对于closure来说，instance不会为nil，所以用closure加unowned关键字引用instance。</p>
-<pre class=" language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title"><code class="language-hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HTMLElement</span> </span>{
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">class</span> <span class="token class-name">HTMLElement</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">let</span> name: <span class="hljs-type">String</span>
-    <span class="hljs-keyword">let</span> text: <span class="hljs-type">String?</span>
+    <span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token builtin">String</span>
+    <span class="token keyword">let</span> text<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token operator">?</span>
 
-    <span class="hljs-built_in">lazy</span> <span class="hljs-keyword">var</span> asHTML: () -> <span class="hljs-type">String</span> = {
-        [<span class="hljs-keyword">unowned</span> <span class="hljs-keyword">self</span>] <span class="hljs-keyword">in</span>
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> text = <span class="hljs-keyword">self</span>.text {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">"<\(self.name)>\(text)</\(self.name)>"</span>
-        } <span class="hljs-keyword">else</span> {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">"<\(self.name) />"</span>
-        }
-    }
+    <span class="token keyword">lazy</span> <span class="token keyword">var</span> asHTML<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">String</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">[</span><span class="token keyword">unowned</span> <span class="token keyword">self</span><span class="token punctuation">]</span> <span class="token keyword">in</span>
+        <span class="token keyword">if</span> <span class="token keyword">let</span> text <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>text <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"&lt;<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span>><span class="token interpolation"><span class="token delimiter variable">\(</span>text<span class="token delimiter variable">)</span></span>&lt;/<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span>>"</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"&lt;<span class="token interpolation"><span class="token delimiter variable">\(</span><span class="token keyword">self</span><span class="token punctuation">.</span>name<span class="token delimiter variable">)</span></span> />"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">init</span>(name: <span class="hljs-type">String</span>, text: <span class="hljs-type">String?</span> = <span class="hljs-literal">nil</span>) {
-        <span class="hljs-keyword">self</span>.name = name
-        <span class="hljs-keyword">self</span>.text = text
-    }
+    <span class="token keyword">init</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token operator">?</span> <span class="token operator">=</span> <span class="token constant">nil</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        <span class="token keyword">self</span><span class="token punctuation">.</span>text <span class="token operator">=</span> text
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">deinit</span> {
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">"\(name) is being deinitialized"</span>)
-    }
+    <span class="token keyword">deinit</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"<span class="token interpolation"><span class="token delimiter variable">\(</span>name<span class="token delimiter variable">)</span></span> is being deinitialized"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-}</code></pre>
+<span class="token punctuation">}</span></code></pre>
 <p>这里在closure里开始部分加的方括号叫做capture list, 用来匹配closure里的instance或者变量(例如delegate).</p>
-<pre class=" language-hljs swift"><span class="hljs-built_in">lazy</span> <span class="hljs-keyword"><code class="language-hljs swift"><span class="hljs-built_in">lazy</span> <span class="hljs-keyword">var</span> someClosure = {
-    [<span class="hljs-keyword">unowned</span> <span class="hljs-keyword">self</span>, <span class="hljs-keyword">weak</span> delegate = <span class="hljs-keyword">self</span>.delegate]
-    (index: <span class="hljs-type">Int</span>, stringToProcess: <span class="hljs-type">String</span>) -> <span class="hljs-type">String</span> <span class="hljs-keyword">in</span>
-    <span class="hljs-comment">// closure body goes here</span>
-}
+<pre class=" language-swift"><code class="language-swift"><span class="token keyword">lazy</span> <span class="token keyword">var</span> someClosure <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token keyword">unowned</span> <span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token keyword">weak</span> delegate <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>delegate<span class="token punctuation">]</span>
+    <span class="token punctuation">(</span>index<span class="token punctuation">:</span> <span class="token builtin">Int</span><span class="token punctuation">,</span> stringToProcess<span class="token punctuation">:</span> <span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">String</span> <span class="token keyword">in</span>
+    <span class="token comment" spellcheck="true">// closure body goes here</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-built_in">lazy</span> <span class="hljs-keyword">var</span> someClosure = {
-    [<span class="hljs-keyword">unowned</span> <span class="hljs-keyword">self</span>, <span class="hljs-keyword">weak</span> delegate = <span class="hljs-keyword">self</span>.delegate] <span class="hljs-keyword">in</span>
-    <span class="hljs-comment">// closure body goes here</span>
-}</code></pre>
+<span class="token keyword">lazy</span> <span class="token keyword">var</span> someClosure <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token keyword">unowned</span> <span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token keyword">weak</span> delegate <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>delegate<span class="token punctuation">]</span> <span class="token keyword">in</span>
+    <span class="token comment" spellcheck="true">// closure body goes here</span>
+<span class="token punctuation">}</span></code></pre>
 <p>加了unowned之后的reference关系图如下所示。</p>
-<p><img src="/2020/02/18/iosarc/closure2.png" srcset="/img/loading.gif" alt="closure strong reference cycle resolved" width="600"><br>这时候就可以释放HTMLElement instance和closure了。和之前一样，因为closure是引用的unowned的instance，closure不是optional，不能赋值nil，所以只能把nil赋值给instance。</p>
+<p><img src="/2020/02/18/iosarc/closure2.png" alt="closure strong reference cycle resolved" width="600"><br>这时候就可以释放HTMLElement instance和closure了。和之前一样，因为closure是引用的unowned的instance，closure不是optional，不能赋值nil，所以只能把nil赋值给instance。</p>
 <p>最后回到一个很基本的问题，当我们打开assistant模式，放一个按钮，按住control拖一个outlet的时候，为什么这个outlet默认是weak的。仔细想想，你一定能明白。</p>
-<p><img src="/2020/02/18/iosarc/button.png" srcset="/img/loading.gif" alt="button" width="500"> </p>
-<pre><code>2020年2月22日凌晨
-Clayton</code></pre><script>
+<p><img src="/2020/02/18/iosarc/button.png" alt="button" width="500"> </p>
+<pre><code>                                            2020年2月22日凌晨
+                                            Clayton</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -369,264 +556,606 @@ Clayton</code></pre><script>
             document.body.appendChild(img);
           });
       </script>
-            </article>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
-                    
-                    
-                      <a href="/2020/03/29/covidtracker/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring Boot实现新冠肺炎病例数展示</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </div>
-                  <div class="post-next col-6">
-                    
-                    
-                      <a href="/2020/01/19/gitinstruction/">
-                        <span class="hidden-mobile">GitHub新手笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </div>
-                </div>
-              
             </div>
+            <hr/>
 
             
-              <!-- Comments -->
-              <div class="comments" id="comments">
-                
-                
-  <script defer src="https://utteranc.es/client.js"
-          repo="zhiyan93/blogtalk"
-          issue-term="pathname"
-  
-          label="utterances"
-    
-          theme="github-light"
-          crossorigin="anonymous"
-  >
-  </script>
 
-
-              </div>
-            
-          </div>
-        </div>
-      </div>
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Zhiyan Liu</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://zhiyan93.github.io/2020/02/18/iosarc/">http://zhiyan93.github.io/2020/02/18/iosarc/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint polocy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Zhiyan Liu</a>
+                    !
+                </span>
+            </div>
+        
     </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
 </div>
 
-      </div>
-    
-  </div>
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Custom -->
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
 
+            
+        </div>
+    </div>
 
     
-  </main>
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '945c422d01438b725632',
+        clientSecret: 'cd4dde7de18be6d28f07e1cfc5b726664702d9c2',
+        repo: 'blogtalk',
+        owner: 'zhiyan93',
+        admin: "zhiyan93",
+        id: '2020-02-18T13-52-50',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2020/03/29/covidtracker/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Spring Boot实现新冠肺炎病例数展示">
+                        
+                        <span class="card-title">Spring Boot实现新冠肺炎病例数展示</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SpringBoot实现新冠肺炎病例数展示现在新冠病毒在国外越闹越凶了，全球已经超过40万病例。我最近在YouTube上看到一个教你用SpringBoot做显示新冠肺炎数据的Web application的教程 （https://www.y
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Zhiyan Liu
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/01/19/gitinstruction/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GitHub新手笔记">
+                        
+                        <span class="card-title">GitHub新手笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            GitHub 新手笔记1.  简介GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫Git
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Zhiyan Liu
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
     </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
 </div>
-  
 
-  
 
-  
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
 
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Zhiyan Liu</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/zhiyan93" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liuzy1123@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/zhiyan43007988" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/zhiyan43007988" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=429015613" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 429015613" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
     </div>
-    
-
-    
-
-    
-  </div>
 </footer>
 
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/main.js" ></script>
+<div class="progress-bar"></div>
 
 
-  <script  src="/js/lazyload.js" ></script>
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
 
 
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-  
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
+    <!-- Baidu Analytics -->
 
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '.post-content',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
+    <!-- Baidu Push -->
 
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
+    
 
+    
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
+    
 
+    
 
+    
 
-
-
-
-<!-- Plugins -->
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "浅谈Swift内存管理&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>
