@@ -17,7 +17,7 @@
   <meta name="description" content="90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^">
   <meta name="author" content="Zhiyan Liu">
   <meta name="keywords" content="">
-  <title>归档 - Zhiyan&#39;s Blog</title>
+  <title>about - Zhiyan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -150,22 +150,27 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 4 篇文章</p>
-  <hr>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/2020/03/29/covidtracker/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Spring Boot实现新冠肺炎病例数展示</span>
-      <span style="float: right;">03-29</span>
-    </a>
-  
+<div class="page-content">
+  <script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
 </div>
-
-
 
               </div>
             </div>
@@ -254,7 +259,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "about&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

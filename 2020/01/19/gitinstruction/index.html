@@ -1,399 +1,199 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
 
 
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="GitHub新手笔记, Zhiyan&#39;s Blog">
-    <meta name="description" content="GitHub 新手笔记1.  简介GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫Git">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GitHub新手笔记 | Zhiyan&#39;s Blog</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^">
+  <meta name="author" content="Zhiyan Liu">
+  <meta name="keywords" content="">
+  <title>GitHub新手笔记 - Zhiyan&#39;s Blog</title>
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
-    
-    <script src="/libs/jquery/jquery.min.js"></script>
-    
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css" />
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper head-container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Zhiyan's Blog</span>
-                </a>
-            </div>
-            
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Zhiyan's Blog</strong>&nbsp;</a>
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>Index</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>Tags</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>Categories</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>About</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>Contact</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
         
-        <div class="logo-name">Zhiyan's Blog</div>
-        <div class="logo-desc">
-            
-            90后, 正在减肥的胖子, 正在找BUG的程序员, 相信一切都会越来越好^-^
-            
-        </div>
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
+  </div>
+</nav>
 
-    
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			Index
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			Tags
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			Categories
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			About
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			Contact
-		</a>
-          
-        </li>
-        
-        
-    </ul>
-</div>
-
-        </div>
-
-        
-    </nav>
-
-</header>
-
-    
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">GitHub新手笔记</h1>
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-01-19 11:04">
+                    2020年1月19日 上午
+                  </time>
                 </div>
-            </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    3.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    40
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
         </div>
+      </div>
     </div>
-</div>
+  </header>
 
-
-
-
-<main class="post-container content">
-
+  <main>
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
+      
 
-    #articleContent :focus {
-        outline: none;
-    }
-
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
-
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
-
-    .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
-
-    #toc-content {
-        height: calc(100vh - 250px);
-        overflow: auto;
-    }
-
-    #toc-content ol {
-        padding-left: 10px;
-    }
-
-    #toc-content ol li {
-        padding-left: 10px;
-    }
-
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #toc-content .is-active-link::before {
-        background-color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-01-19
-                </div>
-                
-
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3.4k
-                </div>
-                
-
-                
-                <div class="info-break-policy">
-                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    13 Min
-                </div>
-                
-
-                
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
-            </div>
-
-        </div>
-        <hr class="clearfix">
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <h1 id="GitHub-新手笔记"><a href="#GitHub-新手笔记" class="headerlink" title="GitHub 新手笔记"></a>GitHub 新手笔记</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.  简介"></a>1.  简介</h2><p>GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫GitKraken, 这个软件用学校的邮箱的GitHub账号可以免费, 界面更加炫酷并且多了一些追踪timeline, branch, 以及任务板之类的的功能, 在多人团队合作的时候可能会比较有用, 自己用就没必要了. 除此之外, 基本上常见的IDE上也都会支持version control功能, 可以在上面登录GitHub的账号, 会方便许多. 但是这种不一定靠谱. 我之前用Xcode做一个iOS的程序的时候, 用Xcode自带的git工具push写好的代码, 遇到过一些BUG.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="GitHub-新手笔记"><a href="#GitHub-新手笔记" class="headerlink" title="GitHub 新手笔记"></a>GitHub 新手笔记</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.  简介"></a>1.  简介</h2><p>GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫GitKraken, 这个软件用学校的邮箱的GitHub账号可以免费, 界面更加炫酷并且多了一些追踪timeline, branch, 以及任务板之类的的功能, 在多人团队合作的时候可能会比较有用, 自己用就没必要了. 除此之外, 基本上常见的IDE上也都会支持version control功能, 可以在上面登录GitHub的账号, 会方便许多. 但是这种不一定靠谱. 我之前用Xcode做一个iOS的程序的时候, 用Xcode自带的git工具push写好的代码, 遇到过一些BUG.</p>
 <p>总结来说, 可以用git命令行, GitHub Desktop, GitKraken(团队合作), IDE自带的工具(Xcode的感觉不靠谱). 本文只介绍命令行, 辅助使用GitHub Desktop.</p>
 <h2 id="2-个人使用"><a href="#2-个人使用" class="headerlink" title="2.  个人使用"></a>2.  个人使用</h2><p>个人使用大部分情况就是这几个命令:</p>
-<pre class=" language-sh"><code class="language-sh"> git clone
- git add .
- git status
- git log --oneline
- git commit -m
- git push
- git diff</code></pre>
+<pre class=" language-hljs sh">git <span class="hljs-built_in"><code class="language-hljs sh">git <span class="hljs-built_in">clone</span>
+git add .
+git status
+git <span class="hljs-built_in">log</span> --oneline
+git commit -m
+git push
+git diff</code></pre>
 <p>git clone: 从GitHub的remote端把repository下载到本地, 并且在本地建立一个repository, clone完之后会发现文件目录下会有一个自动生成的.git的文件, 这个文件就是用来记录你本地的repository信息的.</p>
 <p>git add . : 把你新加入到这个repository的目录下的所有文件加入你的local repository. 简单来说就是添加文件.</p>
 <p>git status: 显示你local repository的状态, 每次执行完一个操作可以用这个命令看看改了哪些东西.</p>
@@ -404,85 +204,88 @@
 <ul>
 <li><h3 id="先在GitHub网站上新建一个repository"><a href="#先在GitHub网站上新建一个repository" class="headerlink" title="先在GitHub网站上新建一个repository"></a>先在GitHub网站上新建一个repository</h3></li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/newrep.png" alt="new repository" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/newrep.png" srcset="/img/loading.gif" alt="new repository" width="500"></p>
 <ul>
 <li><h3 id="用clone命令把这个repository下载到本地"><a href="#用clone命令把这个repository下载到本地" class="headerlink" title="用clone命令把这个repository下载到本地"></a>用clone命令把这个repository下载到本地</h3>打开Command Prompt, 用cd命令来切换到要下载到的目录, 如果在Windows上要从C盘切换到其他盘, 直接输 e: (没有cd) 就是切换到E盘.</li>
 </ul>
 <p>从GitHub上复制那个repository的clone or download按钮的https url.</p>
 <p>之后在命令行里输git clone + 那个复制的url</p>
-<pre class=" language-sh"><code class="language-sh">e:\Git>git clone https://github.com/zhiyan93/individual.git</code></pre>
+<pre class=" language-hljs sh">e:\Git&gt;git <span class="hljs-built_in"><code class="language-hljs sh">e:\Git&gt;git <span class="hljs-built_in">clone</span> https://github.com/zhiyan93/individual.git</code></pre>
+
 <ul>
 <li><h3 id="用add命令给repository目录添加文件"><a href="#用add命令给repository目录添加文件" class="headerlink" title="用add命令给repository目录添加文件"></a>用add命令给repository目录添加文件</h3>这里在文件目录下加了一个叫123.txt的文件, 你的其他project文件也是一样的道理.</li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/add1.png" alt="add new file" width="200"></p>
+<p><img src="/2020/01/19/gitinstruction/add1.png" srcset="/img/loading.gif" alt="add new file" width="200"></p>
 <p>可以先用status命令查看一下</p>
-<pre class=" language-sh"><code class="language-sh">git status</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add2.png" alt="status" width="500"></p>
+<pre class=" language-hljs sh"><code class="language-hljs sh">git status</code></pre>
+<p><img src="/2020/01/19/gitinstruction/add2.png" srcset="/img/loading.gif" alt="status" width="500"></p>
 <p>显示有一个文件Untrack.</p>
 <p>再用git add . 把这个文件加进去, 并查看状态</p>
-<pre class=" language-sh"><code class="language-sh">git add .
+<pre class=" language-hljs sh"><code class="language-hljs sh">git add .
 git status</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add3.png" alt="added status" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/add3.png" srcset="/img/loading.gif" alt="added status" width="400"></p>
 <p>这个文件就被加到local repository了. </p>
 <ul>
 <li><h3 id="用commit保存本地修改"><a href="#用commit保存本地修改" class="headerlink" title="用commit保存本地修改"></a>用commit保存本地修改</h3></li>
 </ul>
 <p>之后再用git commit -m定一下这个版本, 用git push上传到remote repository.</p>
-<pre class=" language-sh"><code class="language-sh">git commit -m "add 123.txt file"
+<pre class=" language-hljs sh">git commit -m <span class="hljs-string"><code class="language-hljs sh">git commit -m <span class="hljs-string">"add 123.txt file"</span>
 git push</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add4.png" alt="commit" width="500"></p>
-<p>打开GitHub网站,就能看到这个文件添加了进去, 点commit tab能看到每一次commit的记录.<br><img src="/2020/01/19/gitinstruction/add5.png" alt="commit record" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/add4.png" srcset="/img/loading.gif" alt="commit" width="500"></p>
+<p>打开GitHub网站,就能看到这个文件添加了进去, 点commit tab能看到每一次commit的记录.<br><img src="/2020/01/19/gitinstruction/add5.png" srcset="/img/loading.gif" alt="commit record" width="500"></p>
 <p>每一次改动之后用commit和push把本地的代码上传就行了.</p>
 <ul>
 <li><h3 id="用GitHub-Desktop或git-diff查看改动"><a href="#用GitHub-Desktop或git-diff查看改动" class="headerlink" title="用GitHub Desktop或git diff查看改动"></a>用GitHub Desktop或git diff查看改动</h3>用GitHub desktop这个软件能比较方便的看出来文件改了哪些地方, 比如我们再123.txt这个文件里输入12345678并保存, 打开GitHub desktop, 能看到这个change, 可以在这里直接commit + push, 也可以再命令行里做, 效果一样.</li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/add6.png" alt="GitHub Desktop" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/add6.png" srcset="/img/loading.gif" alt="GitHub Desktop" width="500"></p>
 <p>这个比较改动也可以再命令行里用git diff来看, 但是显示效果没有在GitHub desktop里面的好. 比如我们再在123.txt文件里加上90, 输入 git diff.</p>
-<pre class=" language-sh"><code class="language-sh">git diff</code></pre>
-<p><img src="/2020/01/19/gitinstruction/add7.png" alt="git diff" width="400"></p>
+<pre class=" language-hljs sh"><code class="language-hljs sh">git diff</code></pre>
+<p><img src="/2020/01/19/gitinstruction/add7.png" srcset="/img/loading.gif" alt="git diff" width="400"></p>
 <p>也能看出来改了哪些地方. 最后可以用git log –oneline看看之前的操作记录.</p>
 <p>个人使用的话会这些基本够用了, 大多数情况下也就用的这些.</p>
 <h2 id="3-小型团队合作"><a href="#3-小型团队合作" class="headerlink" title="3.  小型团队合作"></a>3.  小型团队合作</h2><ul>
 <li><h3 id="collaborator模式"><a href="#collaborator模式" class="headerlink" title="collaborator模式"></a>collaborator模式</h3>用GitHub和其他人合作主要分两种模式, 一个是简单点的Collaborator模式, 就两三个人的话用这种模式比较高效. 一个是比较复杂的Contributer模式. Collaborator模式就是团队中的每个人都可以对这个repository push, 不需要pull request, 不需要其他人审查. 免费的GitHub账号最多可以在一个repository里设置三个Collabortor. 我用学校的邮箱注册过一个GitHub的账号, 这里邀请我的那个账号作为Collaborator.</li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/group3.png" alt="invite collaborator" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group3.png" srcset="/img/loading.gif" alt="invite collaborator" width="400"></p>
 <p>在setting里找到这个界面, 点击invite, 然后点copy invite link, 把那个链接发给要和你合作的那个人, 他点了这个链接相当于同意合作. 之后的效果是这个repository虽然是private的, 对于其他人都不可见, 但是Collaborator都可以看见. </p>
-<p><img src="/2020/01/19/gitinstruction/group4.png" alt="collaboration repo" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group4.png" srcset="/img/loading.gif" alt="collaboration repo" width="400"></p>
 <p>上面这个图就是登录了学校的GitHub账号zhiyan18(图标1),并点击zhiyan93的GitHub账号(图标2)后看到的效果. zhiyan93的标记为private的repository可见了.</p>
 <p>之后的使用方法和个人使用的差不多, 也是Git clone 到本地, 然后修改, git commit, git push 那一套流程.</p>
 <p>我把123.txt那个文件里的文字用两个GitHub账号分别修改了一下, 然后push, 打开Commits界面, 就会看到如下图的现象. 两个头像分别Commit.</p>
-<p><img src="/2020/01/19/gitinstruction/group5.png" alt="commits" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group5.png" srcset="/img/loading.gif" alt="commits" width="400"></p>
 <ul>
 <li><h3 id="处理conflict"><a href="#处理conflict" class="headerlink" title="处理conflict"></a>处理conflict</h3>还有一种情况, 就是比如A修改了一段程序, push了, B也修改了, 但是修改的和A不一样, B在push的时候会出现conflict, git会提示这个conflict. 这时候B需要先pull, 把A做的修改合并到B的local repository, 再push. pull其实完成了fetch和merge两步操作, 即pull = fetch + merge. </li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/group7.png" alt="basic three repos" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group7.png" srcset="/img/loading.gif" alt="basic three repos" width="400"></p>
 <p>如果B觉得A的更新有问题, 可以先用fetch把改动从云端的repository下载到本地的repository, 再用git diff查看A修改了哪些地方, 确定没问题了, 再merge. 如果B修改了A的更新, A需要再使用pull来保持本地的代码和云端的一致.</p>
 <p>举个例子, 原来123.txt的文件内容是”zhiyan18 123”, 我先用zhiyan93的账号把123.txt文件的内容更新成” zhiyan18 123456 “, commit, push, 再用zhiyan18的账号把文件内容改成”zhiyan18 123789”, 这个时候是push不了的, 提示需要先pull. </p>
 <p>使用GitHub Desktop push, 会提示有conflict, 这个时候会在文件里加入提示文字.</p>
-<p><img src="/2020/01/19/gitinstruction/group8.png" alt="conflict in GitHub Desktop" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group8.png" srcset="/img/loading.gif" alt="conflict in GitHub Desktop" width="400"></p>
 <p>点击用visual studio code打开</p>
-<p><img src="/2020/01/19/gitinstruction/group9.png" alt="conflict in vscode" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/group9.png" srcset="/img/loading.gif" alt="conflict in vscode" width="500"></p>
 <p>可以点击visual studio code 自带的合并工具提供的选项, 比如如果点击Accept Both Changes,就会把这两行都保留, 然后push, 可以在GitHub上看到如下效果.</p>
-<p><img src="/2020/01/19/gitinstruction/group10.png" alt="accept both" width="400"></p>
+<p><img src="/2020/01/19/gitinstruction/group10.png" srcset="/img/loading.gif" alt="accept both" width="400"></p>
 <p> 一张图总结以上流程:</p>
-<p><img src="/2020/01/19/gitinstruction/workflow.png" alt="basic work flow" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/workflow.png" srcset="/img/loading.gif" alt="basic work flow" width="500"></p>
 <ul>
 <li><h3 id="gitignore处理私密文件"><a href="#gitignore处理私密文件" class="headerlink" title="gitignore处理私密文件"></a>gitignore处理私密文件</h3>在团队合作中, 另一个需要考虑的问题就是很多文件不能分享, 比如用的很多API的secret key, 或者一些数据. 这时候可以用gitignore来解决.<br>举个例子.<br>在文件夹里有一个secret.txt的文件, 这个文件我们不想被别人看见. 新建一个名为.gitignore的文件, 在文件里写上”secret.txt”, 保存. </li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/ignore1.png" alt="gitignore" width="300"></p>
+<p><img src="/2020/01/19/gitinstruction/ignore1.png" srcset="/img/loading.gif" alt="gitignore" width="300"></p>
 <p>把.gitignore这个文件加到repository里. 在命令行里输:</p>
-<pre><code>git add .gitignore
-git commit -m "add gitignore" </code></pre><p>这时候gitignore里的文件就都被忽略了, 用” git add . “也不会添加这个文件. 这个gitignore里还可以用符号匹配一些模式. 比如星号” * “是wildcard可以匹配任意字符. 这里的” /file.txt “并不表示子目录下的file.txt, 因为默认就会匹配所有子目录的文件, 这里斜杠的意思是只匹配根目录下的file.txt文件.</p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git add .gitignore
+git commit -m "add gitignore"</code></pre>
+<p>这时候gitignore里的文件就都被忽略了, 用” git add . “也不会添加这个文件. 这个gitignore里还可以用符号匹配一些模式. 比如星号” * “是wildcard可以匹配任意字符. 这里的” /file.txt “并不表示子目录下的file.txt, 因为默认就会匹配所有子目录的文件, 这里斜杠的意思是只匹配根目录下的file.txt文件.</p>
 <p>我们用” git log –oneline “来看看操作记录.</p>
-<p><img src="/2020/01/19/gitinstruction/gitlog.png" alt="git log" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/gitlog.png" srcset="/img/loading.gif" alt="git log" width="500"></p>
 <ul>
 <li><h3 id="Project-Board-任务安排"><a href="#Project-Board-任务安排" class="headerlink" title="Project Board 任务安排"></a>Project Board 任务安排</h3>几个人合作时, 还可以点击repository的priject tab使用GitHub自带的Project Board功能. 用这个可以做一些简单的项目管理, 比如任务的安排和分配之类的, 提高合作者之间的沟通效率. 下图是我建立了一个tasks的to do column和包括zhiyan93, zhiyan18的两个progress column, 可以用鼠标拖动task来分配给每个人去做.</li>
 </ul>
-<p><img src="/2020/01/19/gitinstruction/group6.png" alt="project board" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/group6.png" srcset="/img/loading.gif" alt="project board" width="500"></p>
 <p>最后要明白几个概念, 当我们用GitHub的时候, 每个人的代码其实有三份, 分别是云端的repository(remote), 本地的repository(local), 本地你正在写的那一份(working copy). 云端的那份在Git里叫做origion. 所以带origion的命令, 比如会有:</p>
-<pre><code>git push origion master 
-git push origion develop</code></pre><p>就是分别push到remote端的master branch和develop branch. 通常简单使用的话不需要分支, 直接就用 git push就好. 其他的操作同理.</p>
-<p><img src="/2020/01/19/gitinstruction/open1.png" alt="basic terms" width="500"></p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git push origion master 
+git push origion develop</code></pre>
+<p>就是分别push到remote端的master branch和develop branch. 通常简单使用的话不需要分支, 直接就用 git push就好. 其他的操作同理.</p>
+<p><img src="/2020/01/19/gitinstruction/open1.png" srcset="/img/loading.gif" alt="basic terms" width="500"></p>
 <p>每次你用commit命令, 实际上是把working copy覆盖到local repository, 每次你用push或者fetch, pull命令, 实际上是local repository与remote repository在进行同步.<br>两三个人合作的话会这些基本差不多了.</p>
 <h2 id="4-大型团队合作或开源项目"><a href="#4-大型团队合作或开源项目" class="headerlink" title="4.  大型团队合作或开源项目"></a>4.  大型团队合作或开源项目</h2><p>我自己并没有用GitHub与其他人一起合作大型项目的经验, 所以这里写的只是我通过学习一些资料, 总结的一些基本操作. 详细的内容可以参考这几篇文章 </p>
 <p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">https://nvie.com/posts/a-successful-git-branching-model/</a> </p>
@@ -493,9 +296,9 @@ git push origion develop</code></pre><p>就是分别push到remote端的master br
 <p>多人合作的一个基本概念就是Branch, 除了hotfix之外, 添加feature不会在master branch上直接修改. 这个master branch是一个稳定的版本, 供用户去使用的(production). 开发者会从develop branch上fork, 建立自己的分支, 然后在自己的分支上做自己的修改, commit之后push. </p>
 <p>多人合作中, 除了以上提及到的三套代码(remote repository, local repository, working copy) 之外, 还有upstream repository. upstream 就是owner账号下的那一套代码, 用其他账号不能随意修改, 只能用branch提出pull request, 然后owner同意merge.</p>
 <p>开源项目中每个人都使用自己的GitHub账号, 需要设置几个人当code reviewer, 来决定其他人写的branch能不能合并到develop branch, 并决定把develop branch 合并到master branch.</p>
-<p><img src="/2020/01/19/gitinstruction/group2.png" alt="branching model" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/group2.png" srcset="/img/loading.gif" alt="branching model" width="500"></p>
 <p>主要用到的命令:</p>
-<pre><code>git branch -a  //显示所有local branch
+<pre class=" language-hljs plain"><code class="language-hljs plain">git branch -a  //显示所有local branch
 git branch feature1   //新建名为feature1的branch
 git checkout -b feature1   //新建并切换到名为feature1的branch
 git checkout feature1   //切换到名为feature1的branch
@@ -505,49 +308,59 @@ git pull --rebase upstream master   //检查upstream上有没有其他人更新,
 git push origin feature1   //把更新push到你自己的remote repository feature1 branch
 git checkout master   //切换到master branch
 git push origin master   //跟新你自己的remote repository master branch
-git branch -d feature1   //删除feature1 branch</code></pre><ul>
+git branch -d feature1   //删除feature1 branch</code></pre>
+
+<ul>
 <li><h3 id="简单开源项目操作举例"><a href="#简单开源项目操作举例" class="headerlink" title="简单开源项目操作举例"></a>简单开源项目操作举例</h3></li>
 </ul>
 <p>举个例子:</p>
 <ol>
 <li><p>新建. 我用zhiyan18的账号新建了一个repository,名为group, 设置成public. </p>
 </li>
-<li><p>fork. 用zhiyan93的账号找到这个repository, 点击右上角的fork按钮 <img src="/2020/01/19/gitinstruction/fork.png" alt="" width="80"> , 把这个repository复制到zhiyan93账号下. 这里zhiyan18这个账号就是owner, zhiyan93这个账号是contributor (区别于之前讲的collaborator).</p>
+<li><p>fork. 用zhiyan93的账号找到这个repository, 点击右上角的fork按钮 <img src="/2020/01/19/gitinstruction/fork.png" srcset="/img/loading.gif" alt="" width="80"> , 把这个repository复制到zhiyan93账号下. 这里zhiyan18这个账号就是owner, zhiyan93这个账号是contributor (区别于之前讲的collaborator).</p>
 </li>
 <li><p>clone. 用zhiyan93这个账号clone 自己账号上的这个repository到本地.</p>
 </li>
 <li><p>upstream. 设置这个repository的upstream, 这样如果owner的代码被其他人更新了, 我们可以很方便的更新自己的repository, 加入别人的改动.</p>
-<pre><code>git remote add upstream https://github.com/zhiyan18/group.git</code></pre></li>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git remote add upstream https://github.com/zhiyan18/group.git</code></pre></li>
 <li><p>feature branch. 先确保在master branch上, 然后以master branch为基础, 新建一个名为feature1的branch, 在这个branch上修改程序. 不能直接在master branch上修改, 每次新的feature都要新建一个临时的branch, pull request被接受之后要删除.</p>
-<pre><code>git checkout master
-git checkout -b feature1</code></pre><p>这个时候用</p>
-<pre><code>git branch -a
-git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你需要编辑的分支. 每个分支都可以看作一套独立的代码.<br><img src="/2020/01/19/gitinstruction/allbran.png" alt="all branches" width="400"></p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git checkout master
+git checkout -b feature1</code></pre>
+<p>这个时候用</p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git branch -a
+git checkout "分支名"</code></pre>
+<p>可以查看所有分支, 并转到你需要编辑的分支. 每个分支都可以看作一套独立的代码.<br><img src="/2020/01/19/gitinstruction/allbran.png" srcset="/img/loading.gif" alt="all branches" width="400"></p>
 </li>
 <li><p>edit branch. 这里我加入了一个txt文件.</p>
 </li>
 <li><p>pull. 检查upstream的master代码有没有更新.</p>
-<pre><code>git pull --rebase upstream master</code></pre><p>这里设置了参数rebase, 这个参数有两个用处. 一个是你自己的commit和其他人的commit不会按照时间的先后混在一起, 把你的commit message全部放在当前其他人的commit之后, 便于阅读. 另一个是log里不会显示你的merge commit.</p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git pull --rebase upstream master</code></pre>
+<p>这里设置了参数rebase, 这个参数有两个用处. 一个是你自己的commit和其他人的commit不会按照时间的先后混在一起, 把你的commit message全部放在当前其他人的commit之后, 便于阅读. 另一个是log里不会显示你的merge commit.</p>
 </li>
 <li><p>push. 把feature1分支push到contributor的remote repository.</p>
-<pre><code>git push origin feature1</code></pre><p><img src="/2020/01/19/gitinstruction/pushfeature.png" alt="push feature to origin" width="500"></p>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git push origin feature1</code></pre>
+<p><img src="/2020/01/19/gitinstruction/pushfeature.png" srcset="/img/loading.gif" alt="push feature to origin" width="500"></p>
 </li>
 <li><p>pull request. push之后, 在contributor的GitHub网站页面上, 切换到pull request tab, 可以看到有new pull request的按钮, 点击这个按钮, 就能向owner发起pull request.</p>
 </li>
 </ol>
-<p><img src="/2020/01/19/gitinstruction/request.png" alt="pull request" width="500"></p>
-<p><img src="/2020/01/19/gitinstruction/request2.png" alt="open pull request" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/request.png" srcset="/img/loading.gif" alt="pull request" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/request2.png" srcset="/img/loading.gif" alt="open pull request" width="500"></p>
 <p>在owner账户(zhiyan18)那一端, 可以看见这个pull request.</p>
-<p><img src="/2020/01/19/gitinstruction/mergepull.png" alt="merge pull request" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/mergepull.png" srcset="/img/loading.gif" alt="merge pull request" width="500"></p>
 <p>GitHub检查没有conflict之后, owner可以点击”Merge pull request”, 这个feature1 branch就被合并到了master branch.</p>
-<p><img src="/2020/01/19/gitinstruction/added.png" alt="file added" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/added.png" srcset="/img/loading.gif" alt="file added" width="500"></p>
 <ol start="10">
 <li>push origin master. 这个时候虽然我们的pull request被接受, upstream的master branch更新了, 但是contributor的remote端还没有更新. 可以看到下图左上角有一行提示, “This branch is 2 commits behind behind zhiyan18 master”</li>
 </ol>
-<p><img src="/2020/01/19/gitinstruction/beforeadd.png" alt="origin master" width="500"></p>
+<p><img src="/2020/01/19/gitinstruction/beforeadd.png" srcset="/img/loading.gif" alt="origin master" width="500"></p>
 <p>可以从upstream pull, 也可以从本地的代码push.</p>
-<pre><code>git push origin master</code></pre><ol start="11">
-<li>删除feature1 branch<pre><code>git branch -d feature1</code></pre></li>
+<pre class=" language-hljs plain"><code class="language-hljs plain">git push origin master</code></pre>
+
+<ol start="11">
+<li>删除feature1 branch<pre class=" language-hljs plain"><code class="language-hljs plain">git branch -d feature1</code></pre>
+
+</li>
 </ol>
 <p>以上只是涉及到了开源项目中最基本的操作, 实际的情况要复杂很多, 我也不是搞得很懂, 只是把我知道的一些知识分享给大家.<br>谢谢!</p>
 <script>
@@ -569,611 +382,258 @@ git checkout "分支名"</code></pre><p>可以查看所有分支, 并转到你�
             document.body.appendChild(img);
           });
       </script>
-            </div>
-            <hr/>
-
-            
-
-    <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        Author:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="http://zhiyan93.github.io" rel="external nofollow noreferrer">Zhiyan Liu</a>
-                </span>
-            </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        Link:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="http://zhiyan93.github.io/2020/01/19/gitinstruction/">http://zhiyan93.github.io/2020/01/19/gitinstruction/</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        Reprint policy:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    All articles in this blog are used except for special statements
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    reprint polocy. If reproduced, please indicate source
-                    <a href="http://zhiyan93.github.io" target="_blank">Zhiyan Liu</a>
-                    !
-                </span>
-            </div>
-        
-    </div>
-
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
-        M.toast({html: toastHTML})
-      });
-
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
-      }
-    </script>
-
-
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-
-<div id="article-share">
-    
-    
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="/libs/share/js/social-share.min.js"></script>
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
-            
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
-            
-        </div>
-    </div>
-
-    
-        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/css/my-gitalk.css">
-
-<div class="card gitalk-card" data-aos="fade-up">
-    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
-        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
-        <span>评论</span>
-    </div>
-    <div id="gitalk-container" class="card-content"></div>
-</div>
-
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<script>
-    let gitalk = new Gitalk({
-        clientID: '945c422d01438b725632',
-        clientSecret: 'cd4dde7de18be6d28f07e1cfc5b726664702d9c2',
-        repo: 'blogtalk',
-        owner: 'zhiyan93',
-        admin: "zhiyan93",
-        id: '2020-01-19T11-04-10',
-        distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-
-    gitalk.render('gitalk-container');
-</script>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
-            <div class="card">
-                <a href="/2020/02/18/iosarc/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="浅谈Swift内存管理">
-                        
-                        <span class="card-title">浅谈Swift内存管理</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            浅谈Swift内存管理主要内容参考这几篇文章：
-https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html
-https://swiftroc
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-18
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Zhiyan Liu
-                            
-                        </span>
-                    </div>
-                </div>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/01/19/gitinstruction/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GitHub新手笔记">
-                        
-                        <span class="card-title">GitHub新手笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            GitHub 新手笔记1.  简介GitHub是一个用于代码管理和交流的网站, git是一个管理GitHub上代码的命令行工具. GitHub也有Desktop的软件, 就是给那些命令行做一个界面, 功能还是那些. 还有一个付费软件叫Git
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-19
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Zhiyan Liu
-                            
-                        </span>
-                    </div>
-                </div>
-
                 
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/18/iosarc/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">浅谈Swift内存管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                  </div>
+                </div>
+              
             </div>
-        </div>
-        
-    </div>
-</article>
 
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="zhiyan93/blogtalk"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
 </div>
 
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
-
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
-
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
+      </div>
+    
+  </div>
 </div>
 
-<!-- TOC 悬浮按钮. -->
+<!-- Custom -->
 
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
     </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
+  
 
+  
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
-        });
+  
 
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
 
     
 
-</main>
-
-
-
-    <footer class="page-footer bg-color">
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            <span id="year">2020</span>
-            <a href="http://zhiyan93.github.io" target="_blank">Zhiyan Liu</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">9.2k</span>&nbsp;字
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/zhiyan93" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:liuzy1123@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-    <a href="https://twitter.com/zhiyan43007988" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/zhiyan43007988" data-position="top" data-delay="50">
-        <i class="fab fa-twitter"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=429015613" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 429015613" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-</div>
-    </div>
+    
+  </div>
 </footer>
 
-<div class="progress-bar"></div>
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
 
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
-<script type="text/javascript">
-$(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
-});
-</script>
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+  <script  src="/js/lazyload.js" ></script>
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
 
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
 
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
-    
 
-    
 
-    
 
-    
 
-    
-    
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "GitHub新手笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
-
 </html>
